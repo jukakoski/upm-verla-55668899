@@ -1,5 +1,5 @@
 import React from "react";
-import { graphql } from "gatsby";
+import { graphql, navigate } from "gatsby";
 import Container from "../../components/container";
 import Header from "../../components/header";
 import MoreStories from "../../components/more-stories";
@@ -7,8 +7,36 @@ import PostBody from "../../components/post-body";
 import PostHeader from "../../components/post-header";
 import SectionSeparator from "../../components/section-separator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
+import { useIdleTimer } from 'react-idle-timer'
 
+let interval
 export default function Post({ data: { site, post, morePosts } }) {
+
+  const timeoutTimeInSeconds = 10
+
+  const handleOnIdle = event => {
+    console.log('user is idle', event)
+    console.log('last active', getLastActiveTime())
+    navigate("/")
+  }
+
+  const handleOnActive = event => {
+    console.log('user is active', event)
+    console.log('time remaining', getRemainingTime())
+  }
+
+  const handleOnAction = event => {
+    console.log('user did something', event)
+  }
+
+  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+    timeout: 1000 * timeoutTimeInSeconds,
+    onIdle: handleOnIdle,
+    onActive: handleOnActive,
+    onAction: handleOnAction,
+    debounce: 500
+  })
+
   return (
     <Container>
       <HelmetDatoCms seo={post.seo} favicon={site.favicon} />
