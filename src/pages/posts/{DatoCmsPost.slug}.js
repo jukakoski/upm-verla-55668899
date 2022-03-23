@@ -28,6 +28,12 @@ export default function Post({ data: { site, post, morePosts } }) {
   );
 }
 
+/*          __typename
+          id: originalId
+          image {
+            gatsbyImageData(width: 700)
+          }  */
+
 export const query = graphql`
   query PostBySlug($id: String) {
     site: datoCmsSite {
@@ -43,11 +49,22 @@ export const query = graphql`
       slug
       content {
         value
-        blocks {
+          blocks {
           __typename
-          id: originalId
-          image {
-            gatsbyImageData(width: 700)
+          ... on DatoCmsImageBlock {
+            id: originalId
+            image {
+              gatsbyImageData(width: 700)
+            }
+          }
+          ... on DatoCmsVideoBlock {
+            id: originalId
+            video{
+                url
+                video{
+                  thumbnailUrl
+                }
+            }
           }
         }
       }

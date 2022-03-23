@@ -12,6 +12,12 @@ export default function PostBody({ content }) {
             if (record.__typename === "DatoCmsImageBlock") {
               return <GatsbyImage image={record.image.gatsbyImageData} />;
             }
+            if (record.__typename === "DatoCmsVideoBlock") {
+              return <video controls>
+                <source src={record.video.url} type="video/mp4" />
+                <track kind="caption"></track>
+              </video>;
+            }
             return (
               <>
                 <p>Don't know how to render a block!</p>
