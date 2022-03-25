@@ -1,5 +1,5 @@
-import React, { useEffect } from "react";
-import { graphql, navigate } from "gatsby";
+import React from "react";
+import { navigate } from "gatsby";
 import Container from "../components/container";
 import Header from "../components/header";
 import PostBody from "../components/post-body";
@@ -10,18 +10,18 @@ import { useIdleTimer } from "react-idle-timer";
 
 export default function Post({ pageContext }) {
 
-  const { locale, post } = pageContext
-
-  useEffect(() => {
-    console.log("posti", post);
-  }, [post]);
+  const { post, favicon } = pageContext
+  const { locale } = post
 
   const timeoutTimeInSeconds = 10;
 
   const handleOnIdle = (event) => {
     console.log("user is idle", event);
     console.log("last active", getLastActiveTime());
-    navigate("/");
+
+    const home = !locale || locale === 'en' ? '/' : `/${locale}`
+
+    navigate(home);
   };
 
   const handleOnActive = (event) => {
@@ -43,9 +43,8 @@ export default function Post({ pageContext }) {
 
   return (
     <Container>
-      {/*       <HelmetDatoCms seo={post.seo} favicon={site.favicon} /> */}
-      <Header />
-      {locale}
+      <HelmetDatoCms seo={post.seo} favicon={favicon} />
+      <Header locale={locale} />
       <article>
         <PostHeader
           title={post.title}
@@ -59,51 +58,3 @@ export default function Post({ pageContext }) {
     </Container>
   );
 }
-
-
-
-
-/* export const query = graphql`
-  query PostBySlug($id: String, $locale: String) {
-    post: datoCmsPost(id: { eq: $id }, locale: {eq: $locale}) {
-      locale
-      title
-      slug
-      content {
-        value
-        blocks {
-          __typename
-          ... on DatoCmsImageBlock {
-            id: originalId
-            image {
-              gatsbyImageData(width: 700)
-            }
-          }
-          ... on DatoCmsVideoBlock {
-            id: originalId
-            video {
-              url
-              video {
-                thumbnailUrl
-              }
-            }
-          }
-        }
-      }
-      date
-      coverImage {
-        gatsbyImageData(width: 1500)
-      }
-      author {
-        name
-        picture {
-          gatsbyImageData(
-            layout: FIXED
-            width: 48
-            height: 48
-            imgixParams: { sat: -100 }
-          )
-        }
-      }
-    }
-  }` */

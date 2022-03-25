@@ -7,16 +7,14 @@ import { SwiperWrapper } from "../components/swiper-wrapper";
 
 export default function Index({ data: { allPosts, site, blog }, pageContext }) {
 
-
-  const { locale } = pageContext
+  const { locale, favicon } = pageContext
 
   const allPostsLang = { nodes: allPosts.nodes.filter(node => node.locale === locale) }
 
   return (
     <Container>
-      {/*       <HelmetDatoCms seo={blog.seo} favicon={site.favicon} /> */}
-      <div>{locale}</div>
-      <Intro siteData={site} />
+      <HelmetDatoCms seo={blog.seo} favicon={favicon} />
+      <Intro siteData={site} locale={locale} />
       <SwiperWrapper allPosts={allPostsLang} locale={locale} />
     </Container>
   );
@@ -27,6 +25,11 @@ query IndexQuery($locale: String!){
     site: datoCmsSite {
         locales
       }
+    blog: datoCmsBlog {
+      seo: seoMetaTags {
+        tags
+      }
+    }
     allPosts: allDatoCmsPost(
       filter: { locale: { eq: $locale } }
       sort: { fields: date, order: DESC },

@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "gatsby";
 
-export default function Intro({ siteData }) {
+export default function Intro({ siteData, locale }) {
 
   const { locales } = siteData
   return (
@@ -11,21 +11,15 @@ export default function Intro({ siteData }) {
       </h1>
       <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
         Verlan tehdasmuseon näyttely{' '}
-        {locales && locales.map(locale => <a href="https://google.fi">{locale}</a>)}
-        {/*         <a
-          href="https://www.gatsbyjs.com/"
-          className="underline hover:text-success duration-200 transition-colors"
-        >
-          Gatsby
-        </a>{' '}
-        and{' '}
-        <a
-          href="https://www.datocms.com/"
-          className="underline hover:text-success duration-200 transition-colors"
-        >
-          DatoCMS
-        </a>
-        . */}
+        {locales && locales.map(localeItem => <Link
+          style={{
+            marginRight: '0.5rem',
+            color: locale === localeItem ? '#00854C' : 'unset',
+            fontWeight: locale === localeItem ? 'bold' : 'unset'
+          }}
+          to={localeItem === "en" ? '/' : `/${localeItem}`}>
+          {localeItem}
+        </Link>)}
       </h4>
     </section>
   )
