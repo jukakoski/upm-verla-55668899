@@ -9,18 +9,25 @@ import { graphql } from "gatsby";
 import { SwiperWrapper } from "../components/swiper-wrapper";
 
 export default function Index({ data: { allPosts, site, blog } }) {
-  const heroPost = allPosts.nodes[0];
-  const morePosts = allPosts.nodes.slice(1);
+
+  const lang = "fi"
+
+  const allPostsLang = { nodes: allPosts.nodes.filter(node => node.locale === lang) }
+
+  console.log(allPostsLang)
+
+  // const heroPost = allPostsLang.nodes[0];
+  // const morePosts = allPostsLang.nodes.slice(1);
 
 
   return (
     <Container>
       <HelmetDatoCms seo={blog.seo} favicon={site.favicon} />
-      <Intro />
-      <SwiperWrapper allPosts={allPosts} />
+      <Intro siteData={site} />
+      <SwiperWrapper allPosts={allPostsLang} />
       <br></br>
       <br></br>
-{/*       {heroPost && (
+      {/*       {heroPost && (
         <HeroPost
           title={heroPost.title}
           coverImage={heroPost.coverImage}
@@ -38,6 +45,7 @@ export default function Index({ data: { allPosts, site, blog } }) {
 export const query = graphql`
   {
     site: datoCmsSite {
+      locales
       favicon: faviconMetaTags {
         ...GatsbyDatoCmsFaviconMetaTags
       }
@@ -49,6 +57,7 @@ export const query = graphql`
     }
     allPosts: allDatoCmsPost(sort: { fields: date, order: DESC }, limit: 20) {
       nodes {
+        locale
         title
         slug
         excerpt

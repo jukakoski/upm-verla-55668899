@@ -12,43 +12,50 @@ import "swiper/css/navigation";
 
 import "../styles/swiperStyles.css"
 
-export const SwiperWrapper = ({ allPosts }) => {
+export const SwiperWrapper = ({ allPosts, locale }) => {
     return (
         <>
             {allPosts.nodes.length > 0 ?
                 <Swiper
+
+                    autoHeight={false}
+                    speed={800}
                     slidesPerView={"auto"}
                     lazy={true}
                     effect={"coverflow"}
-                    grabCursor={true}
+                    grabCursor={false}
                     loop={true}
                     coverflowEffect={{
-                        rotate: 50,
+                        rotate: 60,
+                        scale: 0.7,
                         stretch: 0,
-                        depth: 100,
+                        depth: 200,
                         modifier: 1,
                         slideShadows: true,
                     }}
                     spaceBetween={50}
                     centeredSlides={true}
                     autoplay={{
-                        delay: 2500,
+                        delay: 4000,
                         disableOnInteraction: false,
                     }}
                     pagination={{
-                        clickable: true,
+                        clickable: false,
+                        // type: "custom"
                     }}
-                    navigation={true}
+                    navigation={false}
                     modules={[Lazy, Autoplay, Pagination, Navigation, EffectCoverflow]}
-                    onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)}
+/*                     onSlideChange={() => console.log('slide change')}
+                    onSwiper={(swiper) => console.log(swiper)} */
                     className="mySwiper"
                 >
                     {allPosts.nodes.map(post => {
+
+                        const postPath = locale === "en" ? `/posts/${post.slug}` : `/${locale}/posts/${post.slug}`
                         console.log(post)
                         return (
-                            <SwiperSlide>
-                                <Link to={`/posts/${post.slug}`} aria-label={post.title}>
+                            <SwiperSlide key={post.slug}>
+                                <Link to={postPath} aria-label={post.title}>
                                     <GatsbyImage
                                         image={post.coverImage.large}
                                         alt={`Cover Image for ${post.title}`}

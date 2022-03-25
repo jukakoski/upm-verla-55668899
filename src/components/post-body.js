@@ -10,13 +10,15 @@ export default function PostBody({ content }) {
           data={content}
           renderBlock={({ record }) => {
             if (record.__typename === "DatoCmsImageBlock") {
-              return <GatsbyImage image={record.image.gatsbyImageData} />;
+              return <GatsbyImage alt={"textblock image"} image={record.image.gatsbyImageData} />;
             }
             if (record.__typename === "DatoCmsVideoBlock") {
-              return <video controls>
-                <source src={record.video.url} type="video/mp4" />
-                <track kind="caption"></track>
-              </video>;
+              return (
+                <video controls>
+                  <source src={record.video.url} type="video/mp4" />
+                  <track kind="caption"></track>
+                </video>
+              )
             }
             return (
               <>

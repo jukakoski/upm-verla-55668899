@@ -1,16 +1,20 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { graphql, navigate } from "gatsby";
 import Container from "../../components/container";
 import Header from "../../components/header";
-import MoreStories from "../../components/more-stories";
+// import MoreStories from "../../components/more-stories";
 import PostBody from "../../components/post-body";
 import PostHeader from "../../components/post-header";
 import SectionSeparator from "../../components/section-separator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { useIdleTimer } from 'react-idle-timer'
 
-let interval
 export default function Post({ data: { site, post, morePosts } }) {
+
+  useEffect(() => {
+      console.log('posti', post)
+  }, [post])
+
 
   const timeoutTimeInSeconds = 10
 
@@ -51,7 +55,7 @@ export default function Post({ data: { site, post, morePosts } }) {
         <PostBody content={post.content} />
       </article>
       <SectionSeparator />
-      {morePosts.nodes.length > 0 && <MoreStories posts={morePosts.nodes} />}
+      {/*       {morePosts.nodes.length > 0 && <MoreStories posts={morePosts.nodes} />} */}
     </Container>
   );
 }
@@ -73,6 +77,7 @@ export const query = graphql`
       seo: seoMetaTags {
         ...GatsbyDatoCmsSeoMetaTags
       }
+      locale
       title
       slug
       content {
@@ -118,6 +123,7 @@ export const query = graphql`
       filter: { id: { ne: $id } }
     ) {
       nodes {
+        locale
         title
         slug
         excerpt
