@@ -135,13 +135,17 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
     const { locale, slug } = post
     const pageTitle = homePageNodes.filter(node => node.locale === locale)[0].globalSeo.fallbackSeo.title
+
+    const path = locale === defaultLanguage ? `/posts/${slug}` : `/${locale}/posts/${slug}`
+    const url = `https://upm-bioarki.web.app${path}`
     createPage({
-      path: locale === defaultLanguage ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
+      path: path,
       component: PostPagesTemplate,
       context: {
         post,
         favicon,
-        pageTitle
+        pageTitle,
+        url
       },
     });
   });

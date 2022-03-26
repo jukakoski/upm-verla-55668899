@@ -39,6 +39,7 @@
     "react-helmet": "^6.1.0",
     "react-i18next": "^11.16.1",
     "react-idle-timer": "^4.6.4",
+    "react-qr-code": "^2.0.3",
     "swiper": "^8.0.7",
     "tailwindcss": "^2.0.3"
   },

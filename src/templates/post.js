@@ -7,10 +7,11 @@ import PostHeader from "../components/post-header";
 import SectionSeparator from "../components/section-separator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { useIdleTimer } from "react-idle-timer";
+import QRCode from "react-qr-code";
 
 export default function Post({ pageContext }) {
 
-  const { post, favicon, pageTitle } = pageContext
+  const { post, favicon, pageTitle, url } = pageContext
   const { locale } = post
 
   const timeoutTimeInSeconds = 10;
@@ -53,6 +54,7 @@ export default function Post({ pageContext }) {
           author={post.author}
         />
         <PostBody content={post.content} />
+        <QRCode style={{marginLeft: "auto", marginTop: "2rem", marginRight: "auto"}} value={url} size={128} />
       </article>
       <SectionSeparator />
     </Container>
