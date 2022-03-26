@@ -7,14 +7,14 @@ import { SwiperWrapper } from "../components/swiper-wrapper";
 
 export default function Index({ data: { allPosts, site, blog }, pageContext }) {
 
-  const { locale, favicon } = pageContext
+  const { locale, favicon, globalSeo } = pageContext
 
   const allPostsLang = { nodes: allPosts.nodes.filter(node => node.locale === locale) }
 
   return (
     <Container>
       <HelmetDatoCms seo={blog.seo} favicon={favicon} />
-      <Intro siteData={site} locale={locale} />
+      <Intro siteData={site} locale={locale} globalSeo={globalSeo} />
       <SwiperWrapper allPosts={allPostsLang} locale={locale} />
     </Container>
   );

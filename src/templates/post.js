@@ -10,7 +10,7 @@ import { useIdleTimer } from "react-idle-timer";
 
 export default function Post({ pageContext }) {
 
-  const { post, favicon } = pageContext
+  const { post, favicon, pageTitle } = pageContext
   const { locale } = post
 
   const timeoutTimeInSeconds = 10;
@@ -44,7 +44,7 @@ export default function Post({ pageContext }) {
   return (
     <Container>
       <HelmetDatoCms seo={post.seo} favicon={favicon} />
-      <Header locale={locale} />
+      <Header locale={locale} pageTitle={pageTitle} />
       <article>
         <PostHeader
           title={post.title}

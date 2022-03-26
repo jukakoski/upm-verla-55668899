@@ -20,17 +20,49 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
   const [defaultLanguage] = allLanguages;
 
+
+  /* Site data query */
+  const {
+    data: {
+      allDatoCmsSite: { homePageNodes },
+    },
+  } = await graphql(`
+      query {
+        allDatoCmsSite {
+          homePageNodes: nodes {
+            locale
+            favicon: faviconMetaTags{
+              tags
+            }
+            globalSeo {
+              siteName
+              fallbackSeo{
+                title
+                description
+              }
+            }
+          }
+        }
+      }
+    `);
+
+
   /* Get index template */
   const HomePageTemplate = path.resolve('src/templates/index.js');
 
-  /* Create index pages */
-  allLanguages.forEach(locale => {
-    createPage({
-      path: locale === defaultLanguage ? '/' : `/${locale}`,
-      component: HomePageTemplate,
-      context: { locale, favicon }
+    /* Create index pages */
+    homePageNodes.forEach(homePageNode => {
+
+      const { locale, favicon, globalSeo } = homePageNode
+      createPage({
+        path: locale === defaultLanguage ? '/' : `/${locale}`,
+        component: HomePageTemplate,
+        context: {
+          globalSeo: globalSeo,
+          locale: locale,
+          favicon }
+      });
     });
-  });
 
 
 
@@ -100,13 +132,16 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
   /* Create post pages */
   postPagesNodes.forEach(post => {
+
     const { locale, slug } = post
+    const pageTitle = homePageNodes.filter(node => node.locale === locale)[0].globalSeo.fallbackSeo.title
     createPage({
       path: locale === defaultLanguage ? `/posts/${slug}` : `/${locale}/posts/${slug}`,
       component: PostPagesTemplate,
       context: {
         post,
-        favicon
+        favicon,
+        pageTitle
       },
     });
   });
