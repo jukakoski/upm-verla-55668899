@@ -4,8 +4,11 @@ import Intro from "../components/intro";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { graphql } from "gatsby";
 import { SwiperWrapper } from "../components/swiper-wrapper";
+import { useKeyboardStream } from "../hooks/hooks"
 
 export default function Index({ data: { allPosts, site, blog }, pageContext }) {
+
+  useKeyboardStream()
 
   const { locale, favicon, globalSeo } = pageContext
 

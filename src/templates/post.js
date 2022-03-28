@@ -8,8 +8,11 @@ import SectionSeparator from "../components/section-separator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { useIdleTimer } from "react-idle-timer";
 import QRCode from "react-qr-code";
+import { useKeyboardStream } from "../hooks/hooks"
 
 export default function Post({ pageContext }) {
+
+  useKeyboardStream()
 
   const { post, favicon, pageTitle, url } = pageContext
   const { locale } = post
@@ -54,7 +57,7 @@ export default function Post({ pageContext }) {
           author={post.author}
         />
         <PostBody content={post.content} />
-        <QRCode style={{marginLeft: "auto", marginTop: "2rem", marginRight: "auto"}} value={url} size={128} />
+        <QRCode style={{ marginLeft: "auto", marginTop: "2rem", marginRight: "auto" }} value={url} size={128} />
       </article>
       <SectionSeparator />
     </Container>
