@@ -23,7 +23,7 @@ export default function Index({ pageContext }) { // data: { allPosts, site, blog
     <Container>
       <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
 
-      <div style={{ position: "relative", height: "65vh" }}>
+      <div style={{ position: "relative", height: "65vh", marginBottom: "3rem" }}>
         <video autoPlay loop style={{ marginLeft: "auto", marginRight: "auto", width: "100%", objectFit: "cover", maxHeight: "65vh" }}>
           <source src={mp4Url} type="video/mp4" />
           <track kind="caption"></track>

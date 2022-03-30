@@ -16,7 +16,7 @@ export default function Intro({ siteData, locale, seo, localeDataArr }) {
       {/*       <h4 className="text-center md:text-left text-lg mt-5 md:pl-8">
         {description}{' '}
       </h4> */}
-      <div style={{ display: "flex" }}>
+      <div className="mt-16 md:mt-auto mb-auto" style={{ display: "flex" }}>
         {localeDataArr && localeDataArr.map(localeItem => <Link key={localeItem.locale}
           style={{
             marginRight: '0.5rem',
@@ -29,7 +29,7 @@ export default function Intro({ siteData, locale, seo, localeDataArr }) {
         </Link>)}
       </div>
 
-      <GatsbyImage image={logo.small} />
+      <GatsbyImage className="md:none" image={logo.small} />
     </section>
   )
 }

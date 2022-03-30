@@ -1,3 +1,5 @@
+const defaultTheme = require('tailwindcss/defaultTheme')
+
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
   darkMode: false, // or 'media' or 'class'
@@ -19,10 +21,9 @@ module.exports = {
       lineHeight: {
         tight: 1.2,
       },
-/*       fontFamily: {
-        sans: ['Graphik', 'sans-serif'],
-        serif: ['Merriweather', 'serif'],
-      }, */
+      fontFamily: {
+        'sans': ['Futura', ...defaultTheme.fontFamily.sans],
+      },
       fontSize: {
         "5xl": "2.5rem",
         "6xl": "2.75rem",

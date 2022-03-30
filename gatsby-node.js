@@ -232,6 +232,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
     const { locale, slug } = product
     const pageTitle = homePageNodes.filter(node => node.locale === locale)[0].seo.title
+    const logo = homePageNodes.filter(node => node.locale === locale)[0].seo.logo
 
     const path = locale === defaultLanguage ? `/products/${slug}` : `/${locale}/products/${slug}`
     const url = `https://upm-bioarki.web.app${path}`
@@ -242,7 +243,8 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
         product,
         favicon,
         pageTitle,
-        url
+        url,
+        logo
       },
     });
   });

@@ -15,10 +15,10 @@ export default function Product({ pageContext }) {
 
   useKeyboardStream()
 
-  const { product, favicon, pageTitle, url } = pageContext
+  const { product, favicon, pageTitle, url, logo } = pageContext
   const { locale, productMedia } = product
 
-  const timeoutTimeInSeconds = 10;
+  const timeoutTimeInSeconds = 600;
 
   const handleOnIdle = (event) => {
     console.log("user is idle", event);
@@ -49,7 +49,7 @@ export default function Product({ pageContext }) {
   return (
     <Container>
       <HelmetDatoCms seo={product.seo} favicon={favicon} />
-      <Header locale={locale} pageTitle={pageTitle} />
+      <Header locale={locale} pageTitle={pageTitle} logo={logo} />
       <article>
         <ProductHeader
           title={product.title}
@@ -57,7 +57,7 @@ export default function Product({ pageContext }) {
           date={product.date}
           author={product.author}
         />
-        <div className="grid grid-cols-2 gap-4">
+        <div className="grid md:grid-cols-2 gap-4">
           <div>
             {productMedia && productMedia.video &&
               <video autoPlay loop>
@@ -69,11 +69,10 @@ export default function Product({ pageContext }) {
           <div>
             <PostBody content={product.content} />
           </div>
-
         </div>
 
 
-        <QRCode style={{ marginLeft: "auto", marginTop: "2rem", marginRight: "auto" }} value={url} size={128} />
+        <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginRight: "auto" }} value={url} size={128} />
       </article>
       <SectionSeparator />
     </Container>
