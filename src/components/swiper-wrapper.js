@@ -15,7 +15,7 @@ import "../styles/swiperStyles.css"
 export const SwiperWrapper = ({ allPosts, locale }) => {
     return (
         <>
-            {allPosts.nodes.length > 0 ?
+            {allPosts.length > 0 ?
                 <Swiper
 
                     autoHeight={false}
@@ -49,9 +49,9 @@ export const SwiperWrapper = ({ allPosts, locale }) => {
                     onSwiper={(swiper) => console.log(swiper)} */
                     className="mySwiper"
                 >
-                    {allPosts.nodes.map(post => {
+                    {allPosts.map(post => {
 
-                        const postPath = locale === "en" ? `/posts/${post.slug}` : `/${locale}/posts/${post.slug}`
+                        const postPath = locale === "en" ? `/products/${post.slug}` : `/${locale}/products/${post.slug}`
                         console.log(post)
                         return (
                             <SwiperSlide key={post.slug}>

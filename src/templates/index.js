@@ -1,29 +1,55 @@
 import React from "react";
 import Container from "../components/container";
 import Intro from "../components/intro";
+import HeroPost from "../components/hero-post";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { graphql } from "gatsby";
 import { SwiperWrapper } from "../components/swiper-wrapper";
 import { useKeyboardStream } from "../hooks/hooks"
 
-export default function Index({ data: { allPosts, site, blog }, pageContext }) {
+export default function Index({ pageContext }) { // data: { allPosts, site, blog },
 
   useKeyboardStream()
 
-  const { locale, favicon, globalSeo } = pageContext
+  const { locale, favicon, seo, heroMedia: { video: { thumbnailUrl, mp4Url } }, localeDataArr, allPosts } = pageContext
 
-  const allPostsLang = { nodes: allPosts.nodes.filter(node => node.locale === locale) }
+  const site = { locales: ["en", "fi"] }
+
+  //  const allPostsLang = { nodes: allPosts.nodes.filter(node => node.locale === locale) }
+
+  // const heroPost = allPostsLang.nodes[0];
 
   return (
     <Container>
-      <HelmetDatoCms seo={blog.seo} favicon={favicon} />
-      <Intro siteData={site} locale={locale} globalSeo={globalSeo} />
-      <SwiperWrapper allPosts={allPostsLang} locale={locale} />
+      <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
+
+      <div style={{ position: "relative", height: "65vh" }}>
+        <video autoPlay loop style={{ marginLeft: "auto", marginRight: "auto", width: "100%", objectFit: "cover", maxHeight: "65vh" }}>
+          <source src={mp4Url} type="video/mp4" />
+          <track kind="caption"></track>
+        </video>
+        <div style={{ position: "absolute", top: 0, left: 0, color: "white", background: "rgba(120, 120, 120, .5)", display: "flex", width: "100%", height: "100%" }}>
+          <div style={{ marginLeft: "auto", marginRight: "auto", marginTop: "auto", marginBottom: "auto" }}>
+            <h1 className="text-6xl md:text-8xl font-bold tracking-tighter leading-tight md:pr-8">
+              {seo.title}
+            </h1>
+          </div>
+        </div>
+      </div>
+{/*       {thumbnailUrl && (
+        <HeroPost
+          title={seo.title}
+          coverImage={thumbnailUrl}
+          slug="testi"
+        />
+      )} */}
+
+    <SwiperWrapper allPosts={allPosts} locale={locale} />
     </Container>
   );
 }
 
-export const query = graphql`
+/* export const query = graphql`
 query IndexQuery($locale: String!){
     site: datoCmsSite {
         locales
@@ -62,4 +88,4 @@ query IndexQuery($locale: String!){
       }
     }
   }
-`;
+`; */
