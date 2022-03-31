@@ -1,4 +1,5 @@
-const defaultTheme = require('tailwindcss/defaultTheme')
+const defaultTheme = require('tailwindcss/defaultTheme');
+const { readBuilderProgram } = require('typescript');
 
 module.exports = {
   purge: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -8,10 +9,12 @@ module.exports = {
       colors: {
         "accent-1": "#7aba28",
         "accent-2": "#ef7726",
+        "accent-3": "#455269",
         "accent-7": "#455269",
         success: "#0070f3",
         cyan: "#79FFE1",
         "upm-dark-grey": "#676362",
+        "upm-dark-grey-25": "rgba(103, 99, 98, 0.25)",
         "upm-brown": "#998573"
       },
       spacing: {

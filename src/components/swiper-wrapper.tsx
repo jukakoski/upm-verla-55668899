@@ -49,7 +49,7 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
                         const postPath = locale === "en" ? `/products/${post.slug}` : `/${locale}/products/${post.slug}`
                         console.log(post)
                         return (
-                            <SwiperSlide key={post.slug}>
+                            <SwiperSlide key={`${post.slug}-${locale}`}>
                                 <Link to={postPath} aria-label={post.title}>
                                     <GatsbyImage
                                         image={post.coverImage.large}

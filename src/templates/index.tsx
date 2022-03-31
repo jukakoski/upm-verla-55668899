@@ -11,7 +11,7 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
   useKeyboardStream()
 
-  const { favicon, locale, seo, seoMetaTags, heroVideoUrl, heroMedia: { video: { mp4Url } }, localeDataArr, allPosts } = pageContext
+  const { favicon, locale, seo, seoMetaTags, heroVideoUrl, productsTitle, heroMedia: { video: { mp4Url } }, localeDataArr, allPosts } = pageContext
 
   const site = { locales: ["en", "fi"] }
 
@@ -40,8 +40,8 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
         <SectionSeparator />
 
-        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bold tracking-tighter leading-tight md:leading-none mb-12 text-center">
-          Tuotteet
+        <h3 className="text-4xl md:text-5xl lg:text-6xl font-bolder tracking-tighter leading-tight md:leading-none mb-12 text-center">
+          {productsTitle}
         </h3>
 
         <SwiperWrapper allPosts={allPosts} locale={locale} />
