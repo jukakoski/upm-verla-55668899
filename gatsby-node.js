@@ -51,6 +51,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
                   small: gatsbyImageData(width: 200)
                 }
               }
+              heroVideoUrl
               heroMedia {
                 video {
                   mp4Url
@@ -64,7 +65,6 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
 
   const localeDataArr = localeDatas[0].node.allLocaleData
-
 
   /* Products data query */
   const {
@@ -122,16 +122,13 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   `);
 
 
-  console.log('noodit', homePageNodes)
-
-
   /* Get index template */
   const HomePageTemplate = path.resolve('src/templates/index.tsx');
 
   /* Create index pages */
   homePageNodes.forEach(homePageNode => {
 
-    const { locale, seo, heroMedia, seoMetaTags } = homePageNode
+    const { locale, seo, heroMedia, heroVideoUrl, seoMetaTags } = homePageNode
     createPage({
       path: locale === defaultLanguage ? '/' : `/${locale}`,
       component: HomePageTemplate,
@@ -140,97 +137,11 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
         locale,
         favicon,
         heroMedia,
+        heroVideoUrl,
         localeDataArr,
         allPosts: productPagesNodes,
         seoMetaTags
       }
-    });
-  });
-
-
-
-
-
-  /* Post data query */
-  const {
-    data: {
-      allDatoCmsPost: { postPagesNodes },
-    },
-  } = await graphql(`
-    query {
-      allDatoCmsPost(
-        sort: { fields: date, order: DESC },
-        limit: 20) {
-        postPagesNodes: nodes {
-          locale
-          title
-          slug
-          excerpt
-          date
-          coverImage {
-            large: gatsbyImageData(width: 1500)
-            small: gatsbyImageData(width: 760)
-          }
-          seo: seoMetaTags {
-            tags
-          }
-          content {
-            value
-              blocks {
-              __typename
-              ... on DatoCmsImageBlock {
-                id: originalId
-                image {
-                  gatsbyImageData(width: 700)
-                }
-              }
-              ... on DatoCmsVideoBlock {
-                id: originalId
-                video{
-                    url
-                    video{
-                      thumbnailUrl
-                    }
-                }
-              }
-            }
-          }
-          author {
-            name
-            picture {
-              gatsbyImageData(
-                layout: FIXED
-                width: 48
-                height: 48
-                imgixParams: { sat: -100 }
-              )
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  /* Get post template */
-  const PostPageTemplate = path.resolve('src/templates/post.js');
-
-  /* Create post pages */
-  postPagesNodes.forEach(post => {
-
-    const { locale, slug } = post
-    const pageTitle = homePageNodes.filter(node => node.locale === locale)[0].seo.title
-
-    const path = locale === defaultLanguage ? `/posts/${slug}` : `/${locale}/posts/${slug}`
-    const url = `https://upm-bioarki.web.app${path}`
-    createPage({
-      path: path,
-      component: PostPageTemplate,
-      context: {
-        post,
-        favicon,
-        pageTitle,
-        url
-      },
     });
   });
 

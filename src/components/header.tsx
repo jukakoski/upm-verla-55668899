@@ -1,6 +1,8 @@
 import React from "react";
 import { Link } from 'gatsby'
 import { GatsbyImage } from "gatsby-plugin-image";
+import { MdArrowBack } from 'react-icons/md';
+
 
 const Header: React.FC<HeaderProps> = ({ locale, pageTitle, logo }) => {
 
@@ -9,7 +11,8 @@ const Header: React.FC<HeaderProps> = ({ locale, pageTitle, logo }) => {
   return (
     <section className="flex-col md:flex-row flex items-center md:justify-between mt-16 mb-16 md:mb-12">
       <h2 className="text-2xl md:text-4xl font-bold tracking-tight md:tracking-tighter leading-tight mb-auto mt-auto">
-        <Link to={homePath} className="hover:underline">
+        <Link to={homePath} className="hover:underline flex">
+          <MdArrowBack className="mr-2" />
           {pageTitle}
         </Link>
       </h2>

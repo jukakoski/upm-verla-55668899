@@ -9,7 +9,6 @@ import 'swiper/css';
 import "swiper/css/pagination";
 import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
-
 import "../styles/swiperStyles.css"
 
 const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
@@ -40,13 +39,10 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
                     }}
                     pagination={{
                         clickable: false,
-                        // type: "custom"
                     }}
                     navigation={false}
                     modules={[Lazy, Autoplay, Pagination, Navigation, EffectCoverflow]}
-                    /*                     onSlideChange={() => console.log('slide change')}
-                                        onSwiper={(swiper) => console.log(swiper)} */
-                    className="mySwiper"
+                    className="mySwiper mb-16"
                 >
                     {allPosts.map(post => {
 

@@ -1,6 +1,5 @@
 import { IGatsbyImageData } from "gatsby-plugin-image";
 import React from "react";
-import CoverImage from "./cover-image";
 import PostTitle from "./post-title";
 
 const ProductHeader: React.FC<ProductHeaderProps> = ({ title, coverImage }) => {
