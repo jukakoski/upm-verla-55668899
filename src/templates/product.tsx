@@ -43,7 +43,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
         <div className="grid md:grid-cols-2 gap-4">
           <div>
             {productVideoUrl &&
-              <video autoPlay loop controlsList="noplaybackrate nodownload" style={{pointerEvents: "none"}}>
+              <video autoPlay loop muted controlsList="noplaybackrate nodownload" style={{pointerEvents: "none"}}>
                 <source src={productVideoUrl} type="video/mp4" />
                 <track kind="caption"></track>
               </video>

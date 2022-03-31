@@ -19,13 +19,13 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
     <>
 
       <Container>
-      <LocalePicker locale={locale} localeDataArr={localeDataArr} />
+        <LocalePicker locale={locale} localeDataArr={localeDataArr} />
         <HelmetDatoCms seo={seoMetaTags} favicon={favicon} />
 
         <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
 
         <div style={{ position: "relative", height: "65vh", marginBottom: "3rem" }}>
-          <video autoPlay loop style={{ pointerEvents: "none", marginLeft: "auto", marginRight: "auto", width: "100%", objectFit: "cover", maxHeight: "65vh" }}>
+          <video autoPlay loop muted style={{ pointerEvents: "none", marginLeft: "auto", marginRight: "auto", width: "100%", objectFit: "cover", maxHeight: "65vh" }}>
             <source src={heroVideoUrl} type="video/mp4" />
             <track kind="caption"></track>
           </video>
