@@ -11,38 +11,23 @@ import QRCode from "react-qr-code";
 import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
 
-export default function Product({ pageContext }) {
+const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
   useKeyboardStream()
 
   const { product, favicon, pageTitle, url, logo } = pageContext
-  const { locale, productMedia } = product
+  const { locale, productMedia, productVideoUrl } = product
 
   const timeoutTimeInSeconds = 600;
 
-  const handleOnIdle = (event) => {
-    console.log("user is idle", event);
-    console.log("last active", getLastActiveTime());
-
+  const handleOnIdle = () => {
     const home = !locale || locale === 'en' ? '/' : `/${locale}`
-
     navigate(home);
   };
 
-  const handleOnActive = (event) => {
-    console.log("user is active", event);
-    console.log("time remaining", getRemainingTime());
-  };
-
-  const handleOnAction = (event) => {
-    console.log("user did something", event);
-  };
-
-  const { getRemainingTime, getLastActiveTime } = useIdleTimer({
+  useIdleTimer({
     timeout: 1000 * timeoutTimeInSeconds,
     onIdle: handleOnIdle,
-    onActive: handleOnActive,
-    onAction: handleOnAction,
     debounce: 500,
   });
 
@@ -54,27 +39,35 @@ export default function Product({ pageContext }) {
         <ProductHeader
           title={product.title}
           coverImage={product.coverImage}
-          date={product.date}
-          author={product.author}
         />
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            {productMedia && productMedia.video &&
-              <video autoPlay loop>
-                <source src={productMedia.video.mp4Url} type="video/mp4" />
+            {productVideoUrl &&
+              <video autoPlay loop controlsList="noplaybackrate nodownload" style={{pointerEvents: "none"}}>
+                <source src={productVideoUrl} type="video/mp4" />
                 <track kind="caption"></track>
               </video>
             }
+
+            {productMedia && productMedia.isImage &&
+              <GatsbyImage alt="product-image" image={productMedia.gatsbyImage} />
+            }
+
           </div>
           <div>
             <PostBody content={product.content} />
           </div>
         </div>
 
-
-        <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginRight: "auto" }} value={url} size={128} />
       </article>
       <SectionSeparator />
+      <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
     </Container>
-  );
+  )
+}
+
+export default Product
+
+interface ProductProps {
+  pageContext: any
 }

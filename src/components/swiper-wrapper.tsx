@@ -12,12 +12,11 @@ import "swiper/css/navigation";
 
 import "../styles/swiperStyles.css"
 
-export const SwiperWrapper = ({ allPosts, locale }) => {
+const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
     return (
         <>
             {allPosts.length > 0 ?
                 <Swiper
-
                     autoHeight={false}
                     speed={800}
                     slidesPerView={"auto"}
@@ -45,8 +44,8 @@ export const SwiperWrapper = ({ allPosts, locale }) => {
                     }}
                     navigation={false}
                     modules={[Lazy, Autoplay, Pagination, Navigation, EffectCoverflow]}
-/*                     onSlideChange={() => console.log('slide change')}
-                    onSwiper={(swiper) => console.log(swiper)} */
+                    /*                     onSlideChange={() => console.log('slide change')}
+                                        onSwiper={(swiper) => console.log(swiper)} */
                     className="mySwiper"
                 >
                     {allPosts.map(post => {
@@ -70,4 +69,11 @@ export const SwiperWrapper = ({ allPosts, locale }) => {
                 </Swiper> : "Ei dataa"}
         </>
     )
+}
+
+export default SwiperWrapper
+
+interface SwiperWrapperProps {
+    allPosts: any[]
+    locale: string
 }

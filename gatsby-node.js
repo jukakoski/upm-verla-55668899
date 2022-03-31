@@ -41,6 +41,9 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             }
             homePageNodes:nodes {
               locale
+              seoMetaTags {
+                tags
+              }
               seo {
                 title
                 description
@@ -76,6 +79,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
           title
           slug
           excerpt
+          productVideoUrl
           coverImage {
             large: gatsbyImageData(width: 1500)
             small: gatsbyImageData(width: 760)
@@ -105,6 +109,8 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
             }
           }
           productMedia {
+            isImage
+            gatsbyImage: gatsbyImageData(width: 700)
             video {
               thumbnailUrl
               mp4Url
@@ -116,13 +122,16 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   `);
 
 
+  console.log('noodit', homePageNodes)
+
+
   /* Get index template */
-  const HomePageTemplate = path.resolve('src/templates/index.js');
+  const HomePageTemplate = path.resolve('src/templates/index.tsx');
 
   /* Create index pages */
   homePageNodes.forEach(homePageNode => {
 
-    const { locale, seo, heroMedia } = homePageNode
+    const { locale, seo, heroMedia, seoMetaTags } = homePageNode
     createPage({
       path: locale === defaultLanguage ? '/' : `/${locale}`,
       component: HomePageTemplate,
@@ -132,10 +141,13 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
         favicon,
         heroMedia,
         localeDataArr,
-        allPosts: productPagesNodes
+        allPosts: productPagesNodes,
+        seoMetaTags
       }
     });
   });
+
+
 
 
 
@@ -225,7 +237,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
 
   /* Get product template */
-  const ProductPageTemplate = path.resolve('src/templates/product.js');
+  const ProductPageTemplate = path.resolve('src/templates/product.tsx');
 
   /* Create product pages */
   productPagesNodes.forEach(product => {

@@ -2,9 +2,7 @@ import React from "react";
 import { Link } from "gatsby";
 import { GatsbyImage } from "gatsby-plugin-image";
 
-export default function Intro({ siteData, locale, seo, localeDataArr }) {
-
-  const { locales } = siteData
+const Intro: React.FC<IntroProps> = ({ locale, seo, localeDataArr }) => {
 
   const { title, description, logo } = seo
 
@@ -25,11 +23,24 @@ export default function Intro({ siteData, locale, seo, localeDataArr }) {
           }}
           to={localeItem.locale === "en" ? '/' : `/${localeItem.locale}`}>
           <img style={{ height: "55px" }} src={localeItem.value.url} />
-          {/*           {localeItem.locale} */}
         </Link>)}
       </div>
 
-      <GatsbyImage className="md:none" image={logo.small} />
+      <GatsbyImage alt="upm-logo" className="md:none" image={logo.small} />
     </section>
   )
+}
+
+export default Intro
+
+
+interface IntroProps {
+  siteData: any
+  locale: string
+  seo: {
+    title: string
+    description: string
+    logo: any
+  }
+  localeDataArr: any[]
 }

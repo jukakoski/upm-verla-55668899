@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from 'gatsby'
 import { GatsbyImage } from "gatsby-plugin-image";
 
-export default function Header({ locale, pageTitle, logo }) {
+const Header: React.FC<HeaderProps> = ({ locale, pageTitle, logo }) => {
 
   const homePath = !locale || locale === 'en' ? '/' : `/${locale}`
 
@@ -13,7 +13,15 @@ export default function Header({ locale, pageTitle, logo }) {
           {pageTitle}
         </Link>
       </h2>
-      <GatsbyImage className="md:none" image={logo.small} />
+      <GatsbyImage alt="upm-logo" className="md:none" image={logo.small} />
     </section>
   )
+}
+
+export default Header
+
+interface HeaderProps {
+  locale: string
+  pageTitle: string
+  logo: any
 }
