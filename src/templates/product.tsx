@@ -11,6 +11,8 @@ import QRCode from "react-qr-code";
 import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Helmet } from "react-helmet";
+import SurveyWrapper from "../components/SurveyWrapper";
+import SimpleSurvey from "../components/SimpleSurvey";
 
 const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
@@ -62,7 +64,11 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
         </div>
 
       </article>
+
       <SectionSeparator />
+      <SimpleSurvey title="Mitä mieltä olet?" thanksText="Kiitos vastauksesta!"  question="Seuraavalla kerralla kiinnitän huomiota pakkausmateriaaliin" options={["Kyllä", "Ehkä", "En"]} />
+      <SectionSeparator />
+{/*       <SurveyWrapper /> */}
       <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
     </Container>
   )

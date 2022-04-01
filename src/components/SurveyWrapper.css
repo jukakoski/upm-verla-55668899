@@ -1,0 +1,11 @@
+
+.survey-wrapper{
+    color: blue;
+    text-align: center;
+    background-color: rgb(241, 238, 238);
+}
+
+.survey-wrapper .sv-button{
+    margin-right: auto !important;
+    margin-left: auto !important;
+}
