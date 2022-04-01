@@ -1,4 +1,5 @@
 const path = require(`path`);
+const fs = require('fs');
 
 exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
@@ -168,3 +169,17 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   });
 
 };
+
+// need to copy firebase.json manually as gatsby cloud
+exports.onPostBuild = () => {
+  fs.copyFile(
+    path.join(__dirname, '/firebase.json'),
+    path.join(__dirname, '/public/firebase.json'),
+    callback
+  )
+}
+
+function callback(err) {
+  if (err) throw err;
+  console.log('/firebase.json was copied to /public/firebase.json');
+}

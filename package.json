@@ -1,9 +1,9 @@
 {
-  "name": "gatsby-blog-demo",
+  "name": "upm-bioarki",
   "version": "1.0.0",
   "private": true,
-  "description": "Gatsby Blog Demo",
-  "author": "Stefano Verna",
+  "description": "Verla exhibition web app",
+  "author": "Aisoft Oy",
   "keywords": [
     "gatsby"
   ],

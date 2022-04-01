@@ -2,6 +2,8 @@
 
 [Repo](https://github.com/datocms/gatsby-blog-demo/tree/main)
 
+Multilang reference https://github.com/smastrom/headless-gatsby-multilang/blob/main/gatsby-node.js
+
 This repo contains a static website written with [GatsbyJS](https://www.gatsbyjs.org/), integrated with content coming from [DatoCMS](https://www.datocms.com).
 
 [See the live demo](https://datocms-gatsby-blog-demo.netlify.app/)
