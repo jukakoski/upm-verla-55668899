@@ -11,10 +11,10 @@ import "swiper/css/effect-coverflow";
 import "swiper/css/navigation";
 import "../styles/swiperStyles.css"
 
-const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
+const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allProducts, locale }) => {
     return (
         <>
-            {allPosts.length > 0 ?
+            {allProducts.length > 0 ?
                 <Swiper
                     autoHeight={false}
                     speed={800}
@@ -44,18 +44,17 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
                     modules={[Lazy, Autoplay, Pagination, Navigation, EffectCoverflow]}
                     className="mySwiper mb-16"
                 >
-                    {allPosts.map(post => {
+                    {allProducts.filter(product => product.locale === locale).map(product => {
 
-                        const postPath = locale === "en" ? `/products/${post.slug}` : `/${locale}/products/${post.slug}`
-                        console.log(post)
+                        const postPath = locale === "en" ? `/products/${product.slug}` : `/${locale}/products/${product.slug}`
                         return (
-                            <SwiperSlide key={`${post.slug}-${locale}`}>
-                                <Link to={postPath} aria-label={post.title}>
+                            <SwiperSlide key={`${product.slug}-${locale}`}>
+                                <Link to={postPath} aria-label={product.title}>
                                     <GatsbyImage
-                                        image={post.coverImage.large}
-                                        alt={`Cover Image for ${post.title}`}
+                                        image={product.coverImage.large}
+                                        alt={`Cover Image for ${product.title}`}
                                         className={cn("shadow-small", {
-                                            "hover:shadow-medium transition-shadow duration-200": post.slug,
+                                            "hover:shadow-medium transition-shadow duration-200": product.slug,
                                         })}
                                     />
                                 </Link>
@@ -70,6 +69,6 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allPosts, locale }) => {
 export default SwiperWrapper
 
 interface SwiperWrapperProps {
-    allPosts: any[]
+    allProducts: any[]
     locale: string
 }

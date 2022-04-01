@@ -41,9 +41,10 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
           coverImage={product.coverImage}
         />
         <div className="grid md:grid-cols-2 gap-4">
+
           <div>
             {productVideoUrl &&
-              <video autoPlay loop muted controlsList="noplaybackrate nodownload" style={{pointerEvents: "none"}}>
+              <video autoPlay loop muted controlsList="noplaybackrate nodownload" style={{ pointerEvents: "none" }}>
                 <source src={productVideoUrl} type="video/mp4" />
                 <track kind="caption"></track>
               </video>
@@ -52,11 +53,10 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
             {productMedia && productMedia.isImage &&
               <GatsbyImage alt="product-image" image={productMedia.gatsbyImage} />
             }
+          </div>
 
-          </div>
-          <div>
-            <PostBody content={product.content} />
-          </div>
+          <PostBody content={product.content} />
+
         </div>
 
       </article>

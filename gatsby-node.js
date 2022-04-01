@@ -53,12 +53,6 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
                 }
               }
               heroVideoUrl
-              heroMedia {
-                video {
-                  mp4Url
-                  thumbnailUrl
-                }
-              }
             }
           }
         }
@@ -129,7 +123,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   /* Create index pages */
   homePageNodes.forEach(homePageNode => {
 
-    const { locale, seo, heroMedia, heroVideoUrl, seoMetaTags, productsTitle } = homePageNode
+    const { locale, seo, heroVideoUrl, seoMetaTags, productsTitle } = homePageNode
     createPage({
       path: locale === defaultLanguage ? '/' : `/${locale}`,
       component: HomePageTemplate,
@@ -137,11 +131,10 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
         seo,
         locale,
         favicon,
-        heroMedia,
         heroVideoUrl,
         productsTitle,
         localeDataArr,
-        allPosts: productPagesNodes,
+        allProducts: productPagesNodes,
         seoMetaTags
       }
     });
