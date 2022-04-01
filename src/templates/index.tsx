@@ -7,6 +7,7 @@ import { useKeyboardStream } from "../hooks/hooks"
 import SectionSeparator from "../components/section-separator";
 import LocalePicker from "../components/locale-picker";
 import HeroVideo from "../components/HeroVideo";
+import { Helmet } from 'react-helmet'
 
 const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
@@ -18,11 +19,12 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
   return (
     <Container>
-      <LocalePicker locale={locale} localeDataArr={localeDataArr} />
+      <Helmet htmlAttributes={{ lang: locale }} />
       <HelmetDatoCms seo={seoMetaTags} favicon={favicon} />
 
-      <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
+      <LocalePicker locale={locale} localeDataArr={localeDataArr} />
 
+      <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
       <HeroVideo videoUrl={heroVideoUrl} overlayText={seo.title} />
 
       <SectionSeparator />
@@ -30,8 +32,8 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
       <h3 className="text-4xl md:text-5xl lg:text-6xl font-bolder tracking-tighter leading-tight md:leading-none mb-12 text-center">
         {productsTitle}
       </h3>
-
       <SwiperWrapper allProducts={allProducts} locale={locale} />
+
     </Container>
   );
 }

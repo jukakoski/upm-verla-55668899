@@ -10,6 +10,7 @@ import { useIdleTimer } from "react-idle-timer";
 import QRCode from "react-qr-code";
 import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
+import { Helmet } from "react-helmet";
 
 const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
@@ -33,6 +34,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
   return (
     <Container>
+      <Helmet htmlAttributes={{ lang: locale }} />
       <HelmetDatoCms seo={product.seo} favicon={favicon} />
       <Header locale={locale} pageTitle={pageTitle} logo={logo} />
       <article>

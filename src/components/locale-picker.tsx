@@ -7,7 +7,7 @@ const LocalePicker: React.FC<LocalePickerProps> = ({ locale, localeDataArr }) =>
             {localeDataArr && localeDataArr.filter(localeItem => localeItem.locale !== locale).map(localeItem => (
                 <Link key={localeItem.locale}
                     to={localeItem.locale === "en" ? '/' : `/${localeItem.locale}`}>
-                    <img style={{ height: "55px" }} src={localeItem.value.url} />
+                    <img alt="locale-picker" style={{ height: "55px" }} src={localeItem.value.url} />
                 </Link>
             ))}
         </div>
