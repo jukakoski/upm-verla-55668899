@@ -101,16 +101,16 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
                         {question}
                     </h3>
                     <div style={{ display: "flex", justifyContent: "center" }}>
-                        {answers.map(option => {
+                        {answers.map(answer => {
                             return (
                                 <button
                                     disabled={busy}
-                                    key={option.name}
-                                    style={{ backgroundColor: busy ? "gray" : null }}
+                                    key={answer.name}
+                                    style={{ backgroundColor: busy ? "gray" : undefined }}
                                     className="bg-accent-2 hover:bg-accent-1 min-w-24 w-24 m-3 text-white font-bold py-2 px-4 rounded-full"
-                                    onClick={() => handleSubmit(option.name)}
+                                    onClick={() => handleSubmit(answer.name)}
                                 >
-                                    {option[locale]}
+                                    {answer[locale as keyof AnswerModel]}
                                 </button>
                             )
                         })}
@@ -124,10 +124,10 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
                     {answerResults && answerResults.map(answer => {
                         const localAnswerText = answers.filter(item => item.name === answer.text)
 
-                        if (localAnswerText && localAnswerText[0] && localAnswerText[0][locale]) {
+                        if (localAnswerText && localAnswerText[0] && localAnswerText[0][locale as keyof AnswerModel]) {
                             return (
                                 <h4 className="text-2xl md:text-2xl text-accent-3 lg:text-2xl font-bolder tracking-tighter leading-tight md:leading-none mb-1 text-center">
-                                    {localAnswerText[0][locale]}: {answer.value}
+                                    {localAnswerText[0][locale as keyof AnswerModel]}: {answer.value}
                                 </h4>)
                         } else {
                             return null

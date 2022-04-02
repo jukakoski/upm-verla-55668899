@@ -2,13 +2,14 @@ require("dotenv").config();
 
 module.exports = {
   siteMetadata: {
-    title: "Gatsby Blog Demo",
+    title: "UPM-Bioarki",
   },
   plugins: [
     {
       resolve: `gatsby-source-filesystem`,
       options: {
-        path: `${__dirname}/locales`,
+        path: './locales',
+        // path: `${__dirname}/locales`,
         name: `locale`
       }
     },
@@ -51,6 +52,14 @@ module.exports = {
     `gatsby-plugin-image`,
     `gatsby-plugin-sharp`,
     `gatsby-transformer-sharp`,
-    `gatsby-plugin-no-index`,
+    `gatsby-plugin-no-index`
+/*     {
+      resolve: `gatsby-plugin-typescript`,
+      options: {
+        isTSX: true, // defaults to false
+        jsxPragma: `jsx`, // defaults to "React"
+        allExtensions: true, // defaults to false
+      },
+    }, */
   ],
 };

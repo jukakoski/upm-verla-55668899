@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { navigate } from "gatsby";
 import Container from "../components/container";
 import Header from "../components/header";
@@ -11,10 +11,21 @@ import QRCode from "react-qr-code";
 import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Helmet } from "react-helmet";
-import SurveyWrapper from "../components/SurveyWrapper";
 import SimpleSurvey from "../components/SimpleSurvey";
 
-const Product: React.FC<ProductProps> = ({ pageContext }) => {
+
+const Product: React.FC<ProductProps> = ({ pageContext, location }) => {
+
+  const [urlParams, setUrlParams] = useState<URLSearchParams | null>();
+  useEffect(() => {
+    if (typeof window !== `undefined`) {
+      const queryString = window.location.search;
+      const urlParams = new URLSearchParams(queryString);
+      if (urlParams) {
+        setUrlParams(urlParams);
+      }
+    }
+  }, []);
 
   useKeyboardStream()
 
@@ -76,14 +87,20 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       </article>
 
       <SectionSeparator />
-      <SimpleSurvey
-        id={slug}
-        title={surveyTitle}
-        thanksText={thankYou}
-        question={question}
-        answers={answersParsed}
-        locale={locale}/>
-      <SectionSeparator />
+      {urlParams && urlParams.get("s") === "1" &&
+        <>
+          <SimpleSurvey
+            id={slug}
+            title={surveyTitle}
+            thanksText={thankYou}
+            question={question}
+            answers={answersParsed}
+            locale={locale} />
+          <SectionSeparator />
+        </>
+      }
+
+
       {/*       <SurveyWrapper /> */}
       <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
     </Container>
@@ -94,8 +111,8 @@ export default Product
 
 interface ProductProps {
   pageContext: any
+  location: any
 }
-
 
 export type AnswerModel = {
   name: string

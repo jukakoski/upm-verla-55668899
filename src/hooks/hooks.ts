@@ -1,15 +1,15 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, SetStateAction } from "react";
 import { navigate } from "gatsby";
 
 const useKey = () => {
 
-    const [pressedKey, setPressedKey] = useState()
+    const [pressedKey, setPressedKey] = useState<string | null>()
 
-    const onUp = (ev) => {
+    const onUp = () => {
         setPressedKey(null)
     }
 
-    const onDown = (ev) => {
+    const onDown = (ev: { key: SetStateAction<string | null | undefined>; }) => {
         if (ev.key !== "Enter" && ev.key !== "Shift") {
             setPressedKey(ev.key)
         }
@@ -29,19 +29,19 @@ const useKey = () => {
 }
 
 // Hook
-const useKeyPress = (targetKey) => {
+const useKeyPress = (targetKey: string) => {
     // State for keeping track of whether key is pressed
     const [keyPressed, setKeyPressed] = useState(false);
 
     // If pressed key is our target key then set to true
-    const downHandler = (ev) => {
+    const downHandler = (ev: KeyboardEvent) => {
         if (ev.key === targetKey) {
             setKeyPressed(true);
         }
     }
 
     // If released key is our target key then set to false
-    const upHandler = (ev) => {
+    const upHandler = (ev: KeyboardEvent) => {
         if (ev.key === targetKey) {
             setKeyPressed(false);
         }
@@ -103,7 +103,7 @@ export { useKeyPress, useKey, useKeyboardStream }
 
 
 
-function isValidHttpUrl(string) {
+function isValidHttpUrl(string: string) {
     let url;
 
     try {

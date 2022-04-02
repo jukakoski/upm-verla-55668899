@@ -1,15 +1,27 @@
+
+'use strict'
+
+import { GatsbyNode } from "gatsby";
+
 const path = require(`path`);
 const fs = require('fs');
 
-exports.createPages = async ({ graphql, actions: { createPage } }) => {
+type TypeDatoCmsSite = {
+    datoCmsSite: {
+      allLanguages: string[]
+      favicon: object
+    }
+}
+
+export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions: { createPage } }) => {
 
   /* Site data query */
   const {
     data: {
       datoCmsSite: { allLanguages, favicon },
     },
-  } = await graphql(`
-    query {
+  } = await graphql<any>(`
+     query {
       datoCmsSite {
         allLanguages: locales
         favicon: faviconMetaTags {
@@ -21,13 +33,12 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 
   const [defaultLanguage] = allLanguages;
 
-
   /* Site data query */
   const {
     data: {
-      allDatoCmsBlog: { homePageNodes, localeDatas  },
+      allDatoCmsBlog: { homePageNodes, localeDatas },
     },
-  } = await graphql(`
+  } = await graphql<any>(`
         query {
           allDatoCmsBlog {
             localeDatas: edges {
@@ -67,7 +78,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
     data: {
       allDatoCmsProduct: { productPagesNodes },
     },
-  } = await graphql(`
+  } = await graphql<any>(`
     query {
       allDatoCmsProduct(limit: 20) {
         productPagesNodes: nodes {
@@ -126,7 +137,7 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   const HomePageTemplate = path.resolve('src/templates/index.tsx');
 
   /* Create index pages */
-  homePageNodes.forEach(homePageNode => {
+  homePageNodes.forEach((homePageNode: { locale: any; seo: any; heroVideoUrl: any; seoMetaTags: any; productsTitle: any; }) => {
 
     const { locale, seo, heroVideoUrl, seoMetaTags, productsTitle } = homePageNode
     createPage({
@@ -151,11 +162,11 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
   const ProductPageTemplate = path.resolve('src/templates/product.tsx');
 
   /* Create product pages */
-  productPagesNodes.forEach(product => {
+  productPagesNodes.forEach((product: { locale: any; slug: any; }) => {
 
     const { locale, slug } = product
-    const pageTitle = homePageNodes.filter(node => node.locale === locale)[0].seo.title
-    const logo = homePageNodes.filter(node => node.locale === locale)[0].seo.logo
+    const pageTitle = homePageNodes.filter((node: { locale: any; }) => node.locale === locale)[0].seo.title
+    const logo = homePageNodes.filter((node: { locale: any; }) => node.locale === locale)[0].seo.logo
 
     const path = locale === defaultLanguage ? `/products/${slug}` : `/${locale}/products/${slug}`
     const url = `https://upm-bioarki.web.app${path}`
@@ -175,15 +186,23 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
 };
 
 // need to copy firebase.json manually as gatsby cloud
-exports.onPostBuild = () => {
+/* export const onPostBuild: GatsbyNode["onPostBuild"] = () => {
   fs.copyFile(
     path.join(__dirname, '/firebase.json'),
     path.join(__dirname, '/public/firebase.json'),
     callback
   )
+} */
+
+export const onPostBuild: GatsbyNode["onPostBuild"] = () => {
+  fs.copyFile(
+    './firebase.json',
+    './public/firebase.json',
+    callback
+  )
 }
 
-function callback(err) {
+function callback(err: any) {
   if (err) throw err;
   console.log('/firebase.json was copied to /public/firebase.json');
 }
