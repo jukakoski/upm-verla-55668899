@@ -19,9 +19,19 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
   useKeyboardStream()
 
   const { product, favicon, pageTitle, url, logo } = pageContext
-  const { locale, productMedia, productVideoUrl } = product
+  const { locale, productMedia, productVideoUrl, slug, surveyTitle, question, thankYou, answers } = product
 
   const timeoutTimeInSeconds = 600;
+
+
+  let answersParsed: AnswerModel[] = []
+  if (answers) {
+    try {
+      answersParsed = JSON.parse(answers)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const handleOnIdle = () => {
     const home = !locale || locale === 'en' ? '/' : `/${locale}`
@@ -66,9 +76,15 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       </article>
 
       <SectionSeparator />
-      <SimpleSurvey title="Mitä mieltä olet?" thanksText="Kiitos vastauksesta!"  question="Seuraavalla kerralla kiinnitän huomiota pakkausmateriaaliin" options={["Kyllä", "Ehkä", "En"]} />
+      <SimpleSurvey
+        id={slug}
+        title={surveyTitle}
+        thanksText={thankYou}
+        question={question}
+        answers={answersParsed}
+        locale={locale}/>
       <SectionSeparator />
-{/*       <SurveyWrapper /> */}
+      {/*       <SurveyWrapper /> */}
       <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
     </Container>
   )
@@ -78,4 +94,11 @@ export default Product
 
 interface ProductProps {
   pageContext: any
+}
+
+
+export type AnswerModel = {
+  name: string
+  fi: string
+  en: string
 }

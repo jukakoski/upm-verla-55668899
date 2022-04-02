@@ -76,6 +76,10 @@ exports.createPages = async ({ graphql, actions: { createPage } }) => {
           slug
           excerpt
           productVideoUrl
+          surveyTitle
+          question
+          thankYou
+          answers
           coverImage {
             large: gatsbyImageData(width: 1500)
             small: gatsbyImageData(width: 760)
