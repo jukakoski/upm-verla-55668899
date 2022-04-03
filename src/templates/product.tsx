@@ -12,9 +12,10 @@ import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Helmet } from "react-helmet";
 import SimpleSurvey from "../components/SimpleSurvey";
+import LocalePicker from "../components/locale-picker";
 
 
-const Product: React.FC<ProductProps> = ({ pageContext, location }) => {
+const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
   const [urlParams, setUrlParams] = useState<URLSearchParams | null>();
   useEffect(() => {
@@ -27,10 +28,10 @@ const Product: React.FC<ProductProps> = ({ pageContext, location }) => {
     }
   }, []);
 
-  useKeyboardStream()
-
-  const { product, favicon, pageTitle, url, logo } = pageContext
+  const { product, favicon, pageTitle, url, logo, localeDataArr } = pageContext
   const { locale, productMedia, productVideoUrl, slug, surveyTitle, question, thankYou, answers } = product
+
+  useKeyboardStream(locale)
 
   const timeoutTimeInSeconds = 600;
 
@@ -59,6 +60,9 @@ const Product: React.FC<ProductProps> = ({ pageContext, location }) => {
     <Container>
       <Helmet htmlAttributes={{ lang: locale }} />
       <HelmetDatoCms seo={product.seo} favicon={favicon} />
+
+      <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr} />
+
       <Header locale={locale} pageTitle={pageTitle} logo={logo} />
       <article>
         <ProductHeader
@@ -111,7 +115,6 @@ export default Product
 
 interface ProductProps {
   pageContext: any
-  location: any
 }
 
 export type AnswerModel = {

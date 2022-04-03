@@ -178,7 +178,8 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
         favicon,
         pageTitle,
         url,
-        logo
+        logo,
+        localeDataArr
       },
     });
   });

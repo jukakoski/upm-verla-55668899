@@ -1,7 +1,9 @@
-import { collection, onSnapshot, addDoc, getDoc, doc, setDoc, updateDoc, increment, serverTimestamp, FieldValue } from 'firebase/firestore'
+import { collection, onSnapshot, getDoc, doc, setDoc, updateDoc, increment, serverTimestamp, FieldValue } from 'firebase/firestore'
 import React, { useEffect, useState } from 'react'
 import db from "../firebase"
 import { AnswerModel } from '../templates/product'
+import { ThreeDots } from 'react-loader-spinner'
+import { AnimatePresence, motion } from "framer-motion"
 
 const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, question, thanksText, locale }) => {
 
@@ -42,8 +44,6 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
 
                 const res = await updateDoc(docRef, updateData)
 
-                setBusy(false)
-
             } else {
                 // doc.data() will be undefined in this case
                 console.log("No such document! Create new...");
@@ -59,8 +59,28 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
                 // Add a new document in collection "survey"
                 const res = await setDoc(doc(db, "survey", id), newSurvey);
 
-                setBusy(false)
             }
+
+            // get doc to show results
+            const docResults = await getDoc(docRef);
+
+            const data = docResults.data()
+
+            if (data && data.answers) {
+
+                const answerArr: Answer[] = []
+
+                for (let answer of Object.entries(data.answers)) {
+                    answerArr.push({ text: answer[0], value: answer[1] })
+                }
+
+                answerArr.sort((a, b) => b.value - a.value)
+
+                setAnswerResults(answerArr)
+            }
+
+            setSubmitted(true)
+            setBusy(false)
 
         } catch (error) {
             console.log(error)
@@ -68,30 +88,10 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
             return
         }
 
-        // get doc to show results
-        const docResults = await getDoc(docRef);
-
-        const data = docResults.data()
-
-        if (data && data.answers) {
-
-            const answerArr: Answer[] = []
-
-            for (let answer of Object.entries(data.answers)) {
-                answerArr.push({ text: answer[0], value: answer[1] })
-            }
-
-            answerArr.sort((a, b) => b.value - a.value)
-
-            setAnswerResults(answerArr)
-        }
-
-        setSubmitted(true)
-        setBusy(false)
     }
 
     return (
-        <div >
+        <AnimatePresence >
             {!submitted ?
                 <>
                     <h2 className="text-3xl md:text-3xl text-accent-1 lg:text-3xl font-bolder tracking-tighter leading-tight md:leading-none mb-12 text-center">
@@ -100,24 +100,36 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
                     <h3 className="text-2xl md:text-2xl lg:text-2xl font-bolder tracking-tighter leading-tight md:leading-none mb-12 text-center">
                         {question}
                     </h3>
-                    <div style={{ display: "flex", justifyContent: "center" }}>
-                        {answers.map(answer => {
-                            return (
-                                <button
-                                    disabled={busy}
-                                    key={answer.name}
-                                    style={{ backgroundColor: busy ? "gray" : undefined }}
-                                    className="bg-accent-2 hover:bg-accent-1 min-w-24 w-24 m-3 text-white font-bold py-2 px-4 rounded-full"
-                                    onClick={() => handleSubmit(answer.name)}
-                                >
-                                    {answer[locale as keyof AnswerModel]}
-                                </button>
-                            )
-                        })}
-                    </div>
+                    {!busy ?
+                        <div style={{ display: "flex", justifyContent: "center" }}>
+                            {answers.map(answer => {
+                                return (
+                                    <button
+                                        disabled={busy}
+                                        key={answer.name}
+                                        style={{ backgroundColor: busy ? "gray" : undefined, transitionDuration: "0.4s" }}
+                                        className="bg-accent-2 hover:bg-accent-3 hover:scale-110 min-w-24 w-24 m-3 text-white font-bold py-2 px-4 rounded-full"
+                                        onClick={() => handleSubmit(answer.name)}
+                                    >
+                                        {answer[locale as keyof AnswerModel]}
+                                    </button>
+                                )
+                            })}
+                        </div>
+                        :
+                        <ThreeDots wrapperStyle={{ display: 'flex', justifyContent: "center" }} color="#7aba28" height="100" width="100" />
+                    }
                 </>
                 :
-                <>
+                <motion.div
+                    initial={{ opacity: 0, x: 0, y: 0 }}
+                    animate={{ opacity: 1, x: 0, y: 0 }}
+                    exit={{ opacity: 0, x: 0, y: 0 }}
+                    transition={{
+                        type: "keyframes",
+                        duration: 0.5
+                    }}
+                >
                     <h2 className="text-3xl md:text-3xl text-accent-1 lg:text-3xl font-bolder tracking-tighter leading-tight md:leading-none mb-6 text-center">
                         {thanksText}
                     </h2>
@@ -134,9 +146,9 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
                         }
 
                     })}
-                </>
+                </motion.div>
             }
-        </div>
+        </AnimatePresence>
     )
 }
 

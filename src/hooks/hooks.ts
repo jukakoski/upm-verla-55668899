@@ -63,7 +63,7 @@ const useKeyPress = (targetKey: string) => {
 
 
 
-const useKeyboardStream = () => {
+const useKeyboardStream = (locale: string) => {
 
     const [keyboardStream, setKeyboardStream] = useState("")
 
@@ -76,8 +76,10 @@ const useKeyboardStream = () => {
         const url = isValidHttpUrl(keyboardStream)
 
         if (url) {
-            console.log(url)
-            navigate(url.pathname);
+
+            const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
+            console.log(localeUrl)
+            navigate(localeUrl);
         }
 
         setTimeout(() => {
