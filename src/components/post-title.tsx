@@ -2,7 +2,7 @@ import React from "react";
 
 const PostTitle: React.FC = ({ children }) => {
   return (
-    <h3 className="text-4xl md:text-5xl lg:text-6xl font-bolder tracking-tighter leading-tight md:leading-none mb-12 text-center md:text-left">
+    <h3 className="text-4xl md:text-5xl lg:text-6xl leading-tight md:leading-none mb-10 text-center md:text-left">
       {children}
     </h3>
   )

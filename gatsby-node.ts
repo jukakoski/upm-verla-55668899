@@ -61,10 +61,11 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
                 title
                 description
                 logo: image {
-                  small: gatsbyImageData(width: 200)
+                  small: gatsbyImageData(width: 180)
                 }
               }
               heroVideoUrl
+              heroVideoOverlayText
             }
           }
         }
@@ -137,9 +138,9 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
   const HomePageTemplate = path.resolve('src/templates/index.tsx');
 
   /* Create index pages */
-  homePageNodes.forEach((homePageNode: { locale: any; seo: any; heroVideoUrl: any; seoMetaTags: any; productsTitle: any; }) => {
+  homePageNodes.forEach((homePageNode: { locale: any; seo: any; heroVideoUrl: string; heroVideoOverlayText: string; seoMetaTags: any; productsTitle: string; }) => {
 
-    const { locale, seo, heroVideoUrl, seoMetaTags, productsTitle } = homePageNode
+    const { locale, seo, heroVideoUrl, heroVideoOverlayText, seoMetaTags, productsTitle } = homePageNode
     createPage({
       path: locale === defaultLanguage ? '/' : `/${locale}`,
       component: HomePageTemplate,
@@ -148,6 +149,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
         locale,
         favicon,
         heroVideoUrl,
+        heroVideoOverlayText,
         productsTitle,
         localeDataArr,
         allProducts: productPagesNodes,

@@ -1,5 +1,4 @@
 const defaultTheme = require('tailwindcss/defaultTheme');
-const { readBuilderProgram } = require('typescript');
 
 module.exports = {
   content: ['./src/**/*.{js,jsx,ts,tsx}'],
@@ -27,7 +26,7 @@ module.exports = {
         tight: 1.2,
       },
       fontFamily: {
-        'sans': ['Futura', ...defaultTheme.fontFamily.sans],
+        'sans': ['futura-pt', ...defaultTheme.fontFamily.sans],
       },
       fontSize: {
         "5xl": "2.5rem",

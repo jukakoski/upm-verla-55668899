@@ -11,7 +11,7 @@ import { Helmet } from 'react-helmet'
 
 const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
-  const { favicon, locale, seo, seoMetaTags, heroVideoUrl, productsTitle, localeDataArr, allProducts } = pageContext
+  const { favicon, locale, seo, seoMetaTags, heroVideoUrl, heroVideoOverlayText, productsTitle, localeDataArr, allProducts } = pageContext
 
   const site = { locales: ["en", "fi"] }
 
@@ -25,7 +25,7 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
       <LocalePicker locale={locale} slug="" localeDataArr={localeDataArr} />
 
       <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
-      <HeroVideo videoUrl={heroVideoUrl} overlayText={seo.title} />
+      <HeroVideo videoUrl={heroVideoUrl} overlayText={heroVideoOverlayText} />
 
       <SectionSeparator />
 
