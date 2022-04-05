@@ -1,6 +1,6 @@
 import React from "react";
-import Container from "../components/Container";
-import Intro from "../components/Intro";
+import Container from "../components/container";
+import Intro from "../components/intro";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import SwiperWrapper from "../components/SwiperWrapper";
 import { useKeyboardStream } from "../hooks/hooks"

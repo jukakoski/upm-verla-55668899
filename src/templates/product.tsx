@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "gatsby";
-import Container from "../components/Container";
-import Header from "../components/Header";
+import Container from "../components/container";
+import Header from "../components/header";
 import PostBody from "../components/PostBody";
 import ProductHeader from "../components/ProductHeader";
 import SectionSeparator from "../components/SectionSeparator";
