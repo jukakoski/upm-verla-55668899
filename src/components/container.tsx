@@ -4,9 +4,9 @@ import { motion } from "framer-motion"
 const Container: React.FC = ({ children }) => {
 
   return (<motion.main
-    initial={{ opacity: 0, x: 0, y: 0 }}
-    animate={{ opacity: 1, x: 0, y: 0 }}
-    exit={{ opacity: 0, x: 0, y: 0 }}
+    initial={{ opacity: 0 }}
+    animate={{ opacity: 1  }}
+    exit={{ opacity: 0 }}
     transition={{
       type: "keyframes",
       duration: 0.5

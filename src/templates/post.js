@@ -1,10 +1,10 @@
 import React from "react";
 import { navigate } from "gatsby";
-import Container from "../components/container";
-import Header from "../components/header";
-import PostBody from "../components/post-body";
+import Container from "../components/Container";
+import Header from "../components/Header";
+import PostBody from "../components/PostBody";
 import PostHeader from "../components/post-header";
-import SectionSeparator from "../components/section-separator";
+import SectionSeparator from "../components/SectionSeparator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { useIdleTimer } from "react-idle-timer";
 import QRCode from "react-qr-code";

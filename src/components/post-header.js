@@ -1,8 +1,8 @@
 import React from "react";
 import Avatar from "../components/avatar";
 import Date from "../components/date";
-import CoverImage from "../components/cover-image";
-import PostTitle from "../components/post-title";
+import CoverImage from "./CoverImage";
+import PostTitle from "./PostTitle";
 
 export default function PostHeader({ title, coverImage, date, author }) {
   return (

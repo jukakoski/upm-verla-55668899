@@ -1,10 +1,10 @@
 import React, { useEffect, useState } from "react";
 import { navigate } from "gatsby";
-import Container from "../components/container";
-import Header from "../components/header";
-import PostBody from "../components/post-body";
-import ProductHeader from "../components/product-header";
-import SectionSeparator from "../components/section-separator";
+import Container from "../components/Container";
+import Header from "../components/Header";
+import PostBody from "../components/PostBody";
+import ProductHeader from "../components/ProductHeader";
+import SectionSeparator from "../components/SectionSeparator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { useIdleTimer } from "react-idle-timer";
 import QRCode from "react-qr-code";
@@ -12,8 +12,7 @@ import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Helmet } from "react-helmet";
 import SimpleSurvey from "../components/SimpleSurvey";
-import LocalePicker from "../components/locale-picker";
-
+import LocalePicker from "../components/LocalePicker";
 
 const Product: React.FC<ProductProps> = ({ pageContext }) => {
 

@@ -3,7 +3,6 @@ import { Link } from 'gatsby'
 import { GatsbyImage } from "gatsby-plugin-image";
 import { MdArrowBack } from 'react-icons/md';
 
-
 const Header: React.FC<HeaderProps> = ({ locale, pageTitle, logo }) => {
 
   const homePath = !locale || locale === 'en' ? '/' : `/${locale}`

@@ -1,11 +1,11 @@
 import React from "react";
-import Container from "../components/container";
-import Intro from "../components/intro";
+import Container from "../components/Container";
+import Intro from "../components/Intro";
 import { HelmetDatoCms } from "gatsby-source-datocms";
-import SwiperWrapper from "../components/swiper-wrapper";
+import SwiperWrapper from "../components/SwiperWrapper";
 import { useKeyboardStream } from "../hooks/hooks"
-import SectionSeparator from "../components/section-separator";
-import LocalePicker from "../components/locale-picker";
+import SectionSeparator from "../components/SectionSeparator";
+import LocalePicker from "../components/LocalePicker";
 import HeroVideo from "../components/HeroVideo";
 import { Helmet } from 'react-helmet'
 

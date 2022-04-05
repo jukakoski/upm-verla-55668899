@@ -50,6 +50,7 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allProducts, locale }) =>
                         return (
                             <SwiperSlide key={`${product.slug}-${locale}`}>
                                 <Link to={postPath} aria-label={product.title}>
+
                                     <GatsbyImage
                                         image={product.coverImage.large}
                                         alt={`Cover Image for ${product.title}`}
@@ -57,6 +58,7 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allProducts, locale }) =>
                                             "hover:shadow-medium transition-shadow duration-200": product.slug,
                                         })}
                                     />
+                                    <h3 className='text-center text-2xl mt-2 text-accent-3'>{product.title}</h3>
                                 </Link>
                             </SwiperSlide>
                         )
