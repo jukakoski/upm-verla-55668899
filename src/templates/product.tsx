@@ -60,7 +60,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       <Helmet htmlAttributes={{ lang: locale }} />
       <HelmetDatoCms seo={product.seo} favicon={favicon} />
 
-      <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr} />
+      <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr}  />
 
       <Header locale={locale} pageTitle={pageTitle} logo={logo} />
       <article>
@@ -81,6 +81,18 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
             {productMedia && productMedia.isImage &&
               <GatsbyImage alt="product-image" image={productMedia.gatsbyImage} />
             }
+
+
+            <div className="mt-16">
+              <SimpleSurvey
+                id={slug}
+                title={surveyTitle}
+                thanksText={thankYou}
+                question={question}
+                answers={answersParsed}
+                locale={locale} />
+            </div>
+
           </div>
 
           <PostBody content={product.content} />
@@ -90,7 +102,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       </article>
 
       <SectionSeparator />
-      {urlParams && urlParams.get("s") === "1" &&
+{/*       {urlParams && urlParams.get("s") === "1" &&
         <>
           <SimpleSurvey
             id={slug}
@@ -101,7 +113,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
             locale={locale} />
           <SectionSeparator />
         </>
-      }
+      } */}
 
 
       {/*       <SurveyWrapper /> */}

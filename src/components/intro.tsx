@@ -6,13 +6,13 @@ const Intro: React.FC<IntroProps> = ({ seo }) => {
   const { title, description, logo } = seo
 
   return (
-    <section className="flex-col md:flex-row flex items-center md:justify-between mt-14 md:mt-16 mb-10 md:mb-8">
+    <section className="flex-col md:flex-row flex items-center md:justify-between mt-32 md:mt-32 mb-10 md:mb-8">
       <div className="text-center md:text-left">
-        <h3 className="text-3xl mt-5 text-upm-dark-grey">
-          {description}{' '}
-        </h3>
+{/*         <h3 className="text-3xl mt-5 text-upm-dark-grey">
+          {'  '}
+        </h3> */}
         <h1 className="text-6xl md:text-7xl leading-tight">
-          {title}
+          {description}
         </h1>
       </div>
 

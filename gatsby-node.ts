@@ -61,7 +61,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
                 title
                 description
                 logo: image {
-                  small: gatsbyImageData(width: 180)
+                  small: gatsbyImageData(width: 120)
                 }
               }
               heroVideoUrl
