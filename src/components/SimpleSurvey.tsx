@@ -108,7 +108,7 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
                                         disabled={busy}
                                         key={answer.name}
                                         style={{ backgroundColor: busy ? "gray" : undefined, transitionDuration: "0.4s" }}
-                                        className="bg-accent-2 hover:bg-accent-3 hover:scale-110 min-w-24 w-24 m-3 text-white font-bold py-2 px-4 rounded-full"
+                                        className="bg-accent-1 hover:bg-accent-3 hover:scale-110 min-w-24 w-24 m-3 text-white font-bold py-2 px-4 rounded-full"
                                         onClick={() => handleSubmit(answer.name)}
                                     >
                                         {answer[locale as keyof AnswerModel]}

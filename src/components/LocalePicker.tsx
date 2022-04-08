@@ -3,7 +3,7 @@ import React from 'react'
 
 const LocalePicker: React.FC<LocalePickerProps> = ({ locale, slug, localeDataArr }) => {
     return (
-        <div style={{}} className="absolute left-0 top-0 w-full h-auto bg-accent-1 flex">
+        <div style={{}} className="absolute left-0 top-0 w-full h-auto bg-upm-black flex">
             <div className="relative ml-auto mr-0 my-2" style={{ display: "flex" }}>
                 {localeDataArr && localeDataArr.filter(localeItem => localeItem.locale !== locale).map(localeItem => (
                     <Link key={localeItem.locale}

@@ -1,3 +1,5 @@
+@import url('../fonts/Futura-PT_Light.css');
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

@@ -14,7 +14,8 @@ module.exports = {
         cyan: "#79FFE1",
         "upm-dark-grey": "#676362",
         "upm-dark-grey-25": "rgba(103, 99, 98, 0.25)",
-        "upm-brown": "#998573"
+        "upm-brown": "#998573",
+        "upm-black": "#202020"
       },
       spacing: {
         28: "7rem",
