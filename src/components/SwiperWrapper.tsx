@@ -34,7 +34,7 @@ const SwiperWrapper: React.FC<SwiperWrapperProps> = ({ allProducts, locale }) =>
                     spaceBetween={50}
                     centeredSlides={true}
                     autoplay={{
-                        delay: 4000,
+                        delay: 6000,
                         disableOnInteraction: false,
                     }}
                     pagination={{
