@@ -10,7 +10,8 @@ const useKey = () => {
     }
 
     const onDown = (ev: { key: SetStateAction<string | null | undefined>; }) => {
-        if (ev.key !== "Enter" && ev.key !== "Shift") {
+        // if (ev.key !== "Enter" && ev.key !== "Shift") {
+        if (ev.key !== "Shift") {
             setPressedKey(ev.key)
         }
     }
@@ -67,40 +68,38 @@ const useKeyboardStream = (locale: string) => {
 
     const [keyboardStream, setKeyboardStream] = useState("")
 
+    useEffect(() => {
+        if (keyboardStream) {
+
+            const url = isValidHttpUrl(keyboardStream)
+
+            if (url) {
+                const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
+                console.log(localeUrl)
+                navigate(localeUrl);
+            } else {
+            }
+
+            setTimeout(() => {
+                setKeyboardStream("")
+            }, 1000)
+
+        }
+    }, [keyboardStream])
+
+
     const lastKey = useKey()
 
     const enterKey = useKeyPress("Enter")
 
+    // update keyboard stream on keypress
     useEffect(() => {
-
-        const url = isValidHttpUrl(keyboardStream)
-
-        if (url) {
-
-            const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
-            console.log(localeUrl)
-            navigate(localeUrl);
-        } else {
-        }
-
-
-        setTimeout(() => {
-            setKeyboardStream("")
-        }, 1000)
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [enterKey])
-
-
-    useEffect(() => {
-        if (lastKey) {
+        if (lastKey && lastKey !== "Enter" && lastKey !== "Meta") {
             setKeyboardStream(prevValue => prevValue + lastKey)
         }
     }, [lastKey])
 
-
-    return [keyboardStream, lastKey, enterKey]
-
+    return keyboardStream
 }
 
 export { useKeyPress, useKey, useKeyboardStream }

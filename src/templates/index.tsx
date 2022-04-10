@@ -3,7 +3,7 @@ import Container from "../components/container";
 import Intro from "../components/intro";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import SwiperWrapper from "../components/SwiperWrapper";
-import { useKeyboardStream } from "../hooks/hooks"
+import { useKeyboardStream, useKeyPress } from "../hooks/hooks"
 import SectionSeparator from "../components/SectionSeparator";
 import LocalePicker from "../components/LocalePicker";
 import HeroVideo from "../components/HeroVideo";
@@ -18,16 +18,15 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
   const site = { locales: ["en", "fi"] }
 
-  const [keyboardStream, lastKey, enterKey] = useKeyboardStream(locale)
-
+  const keyboardStream = useKeyboardStream(locale)
 
   useEffect(() => {
 
-    if (enterKey) {
-      toast(keyboardStream, {hideProgressBar: false, progressClassName: 'upm-progress-bar' })
+    if (keyboardStream) {
+      // toast(keyboardStream, {hideProgressBar: false, progressClassName: 'upm-progress-bar' })
     }
 
-  }, [keyboardStream, enterKey])
+  }, [keyboardStream])
 
 
   return (
@@ -38,6 +37,7 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
       <LocalePicker locale={locale} slug="" localeDataArr={localeDataArr} />
 
       <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
+      {keyboardStream}
       <HeroVideo videoUrl={heroVideoUrl} overlayText={heroVideoOverlayText} />
 
       <SectionSeparator />

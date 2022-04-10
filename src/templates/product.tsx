@@ -33,15 +33,15 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
   const { locale, productMedia, productVideoUrl, slug, surveyTitle, question, thankYou, answers } = product
 
 
-  const [keyboardStream, lastKey, enterKey] = useKeyboardStream(locale)
+  const keyboardStream = useKeyboardStream(locale)
 
   useEffect(() => {
 
-    if (enterKey) {
-      toast(keyboardStream, {hideProgressBar: false, progressClassName: 'upm-progress-bar' })
+    if (keyboardStream) {
+      // toast(keyboardStream, { hideProgressBar: false, progressClassName: 'upm-progress-bar' })
     }
 
-  }, [keyboardStream, enterKey])
+  }, [keyboardStream])
 
   const timeoutTimeInSeconds = 600;
 
