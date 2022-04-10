@@ -1,22 +1,21 @@
-import React, { useEffect } from "react";
+import React from "react";
 import Container from "../components/container";
 import Intro from "../components/intro";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import SwiperWrapper from "../components/SwiperWrapper";
-// import { useKeyboardStream, useKeyPress } from "../hooks/hooks"
 import SectionSeparator from "../components/SectionSeparator";
 import LocalePicker from "../components/LocalePicker";
 import HeroVideo from "../components/HeroVideo";
 import { Helmet } from 'react-helmet'
-// import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
-import '../styles/toastStyles.css'
+import { useKeyboardStream } from "../hooks/hooks";
 
 const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
   const { favicon, locale, seo, seoMetaTags, heroVideoUrl, heroVideoOverlayText, productsTitle, localeDataArr, allProducts } = pageContext
 
   const site = { locales: ["en", "fi"] }
+
+  useKeyboardStream(locale)
 
 /*   const keyboardStream = useKeyboardStream(locale)
 
@@ -46,7 +45,6 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
       </h3>
       <SwiperWrapper allProducts={allProducts} locale={locale} />
 
-{/*       <ToastContainer  /> */}
     </Container>
   );
 }

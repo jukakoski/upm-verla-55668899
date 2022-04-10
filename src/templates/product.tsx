@@ -8,13 +8,11 @@ import SectionSeparator from "../components/SectionSeparator";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import { useIdleTimer } from "react-idle-timer";
 import QRCode from "react-qr-code";
-// import { useKeyboardStream } from "../hooks/hooks"
 import { GatsbyImage } from "gatsby-plugin-image";
 import { Helmet } from "react-helmet";
 import SimpleSurvey from "../components/SimpleSurvey";
 import LocalePicker from "../components/LocalePicker";
-// import { toast, ToastContainer } from "react-toastify";
-import '../styles/toastStyles.css'
+import { useKeyboardStream } from "../hooks/hooks";
 
 const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
@@ -32,16 +30,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
   const { product, favicon, pageTitle, url, logo, localeDataArr } = pageContext
   const { locale, productMedia, productVideoUrl, slug, surveyTitle, question, thankYou, answers } = product
 
-
-/*   const keyboardStream = useKeyboardStream(locale)
-
-  useEffect(() => {
-
-    if (keyboardStream) {
-      toast(keyboardStream, { hideProgressBar: false, progressClassName: 'upm-progress-bar' })
-    }
-
-  }, [keyboardStream]) */
+  useKeyboardStream(locale)
 
   const timeoutTimeInSeconds = 600;
 
@@ -130,7 +119,6 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       {/*       <SurveyWrapper /> */}
       <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
 
-{/*       <ToastContainer /> */}
     </Container>
   )
 }
