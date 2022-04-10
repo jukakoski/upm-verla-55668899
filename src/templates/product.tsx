@@ -13,6 +13,8 @@ import { GatsbyImage } from "gatsby-plugin-image";
 import { Helmet } from "react-helmet";
 import SimpleSurvey from "../components/SimpleSurvey";
 import LocalePicker from "../components/LocalePicker";
+import { toast, ToastContainer } from "react-toastify";
+import '../styles/toastStyles.css'
 
 const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
@@ -30,7 +32,16 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
   const { product, favicon, pageTitle, url, logo, localeDataArr } = pageContext
   const { locale, productMedia, productVideoUrl, slug, surveyTitle, question, thankYou, answers } = product
 
-  useKeyboardStream(locale)
+
+  const [keyboardStream, lastKey, enterKey] = useKeyboardStream(locale)
+
+  useEffect(() => {
+
+    if (enterKey) {
+      toast(keyboardStream, {hideProgressBar: false, progressClassName: 'upm-progress-bar' })
+    }
+
+  }, [keyboardStream, enterKey])
 
   const timeoutTimeInSeconds = 600;
 
@@ -60,7 +71,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       <Helmet htmlAttributes={{ lang: locale }} />
       <HelmetDatoCms seo={product.seo} favicon={favicon} />
 
-      <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr}  />
+      <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr} />
 
       <Header locale={locale} pageTitle={pageTitle} logo={logo} />
       <article>
@@ -102,7 +113,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       </article>
 
       <SectionSeparator />
-{/*       {urlParams && urlParams.get("s") === "1" &&
+      {/*       {urlParams && urlParams.get("s") === "1" &&
         <>
           <SimpleSurvey
             id={slug}
@@ -118,6 +129,10 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
       {/*       <SurveyWrapper /> */}
       <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
+
+      <ToastContainer />
+
+
     </Container>
   )
 }

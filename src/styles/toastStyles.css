@@ -1,0 +1,11 @@
+.upm-progress-bar {
+  --toastify-color-progress-light: linear-gradient(
+    to right,
+    #4cd964,
+    #5ac8fa,
+    #007aff,
+    #34aadc,
+    #5856d6,
+    #290b10
+  );
+}

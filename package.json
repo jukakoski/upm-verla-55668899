@@ -50,6 +50,7 @@
     "react-idle-timer": "^4.6.4",
     "react-loader-spinner": "^6.0.0-0",
     "react-qr-code": "^2.0.4",
+    "react-toastify": "^8.2.0",
     "survey-react": "^1.9.22",
     "swiper": "^8.0.7",
     "tailwindcss": "^3.0.23",

@@ -80,7 +80,9 @@ const useKeyboardStream = (locale: string) => {
             const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
             console.log(localeUrl)
             navigate(localeUrl);
+        } else {
         }
+
 
         setTimeout(() => {
             setKeyboardStream("")
@@ -97,7 +99,7 @@ const useKeyboardStream = (locale: string) => {
     }, [lastKey])
 
 
-    return keyboardStream
+    return [keyboardStream, lastKey, enterKey]
 
 }
 
