@@ -3,12 +3,12 @@ import Container from "../components/container";
 import Intro from "../components/intro";
 import { HelmetDatoCms } from "gatsby-source-datocms";
 import SwiperWrapper from "../components/SwiperWrapper";
-import { useKeyboardStream, useKeyPress } from "../hooks/hooks"
+// import { useKeyboardStream, useKeyPress } from "../hooks/hooks"
 import SectionSeparator from "../components/SectionSeparator";
 import LocalePicker from "../components/LocalePicker";
 import HeroVideo from "../components/HeroVideo";
 import { Helmet } from 'react-helmet'
-import { ToastContainer, toast } from 'react-toastify';
+// import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import '../styles/toastStyles.css'
 
@@ -18,15 +18,15 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
 
   const site = { locales: ["en", "fi"] }
 
-  const keyboardStream = useKeyboardStream(locale)
+/*   const keyboardStream = useKeyboardStream(locale)
 
   useEffect(() => {
 
     if (keyboardStream) {
-      // toast(keyboardStream, {hideProgressBar: false, progressClassName: 'upm-progress-bar' })
+      toast(keyboardStream, {hideProgressBar: false, progressClassName: 'upm-progress-bar' })
     }
 
-  }, [keyboardStream])
+  }, [keyboardStream]) */
 
 
   return (
@@ -37,7 +37,6 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
       <LocalePicker locale={locale} slug="" localeDataArr={localeDataArr} />
 
       <Intro siteData={site} locale={locale} seo={seo} localeDataArr={localeDataArr} />
-      {keyboardStream}
       <HeroVideo videoUrl={heroVideoUrl} overlayText={heroVideoOverlayText} />
 
       <SectionSeparator />
@@ -47,7 +46,7 @@ const Index: React.FC<IndexProps> = ({ pageContext }) => {
       </h3>
       <SwiperWrapper allProducts={allProducts} locale={locale} />
 
-      <ToastContainer  />
+{/*       <ToastContainer  /> */}
     </Container>
   );
 }

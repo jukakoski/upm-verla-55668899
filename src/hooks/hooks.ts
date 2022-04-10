@@ -68,6 +68,8 @@ const useKeyboardStream = (locale: string) => {
 
     const [keyboardStream, setKeyboardStream] = useState("")
 
+    const lastKey = useKey()
+
     useEffect(() => {
         if (keyboardStream) {
 
@@ -87,10 +89,6 @@ const useKeyboardStream = (locale: string) => {
         }
     }, [keyboardStream])
 
-
-    const lastKey = useKey()
-
-    const enterKey = useKeyPress("Enter")
 
     // update keyboard stream on keypress
     useEffect(() => {
