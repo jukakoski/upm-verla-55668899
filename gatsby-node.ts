@@ -81,7 +81,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
     },
   } = await graphql<any>(`
     query {
-      allDatoCmsProduct(limit: 20) {
+      allDatoCmsProduct(limit: 100) {
         productPagesNodes: nodes {
           locale
           title
@@ -172,6 +172,10 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
 
     const path = locale === defaultLanguage ? `/products/${slug}` : `/${locale}/products/${slug}`
     const url = `https://upm-bioarki.web.app${path}`
+
+    if(locale === "en")
+      console.log(url)
+
     createPage({
       path: path,
       component: ProductPageTemplate,
