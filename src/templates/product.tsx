@@ -101,7 +101,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
       </article>
 
-      <SectionSeparator />
+
       {/*       {urlParams && urlParams.get("s") === "1" &&
         <>
           <SimpleSurvey
@@ -115,9 +115,12 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
         </>
       } */}
 
+      {locale === "en" &&
+        <><SectionSeparator />
+          <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
+        </>
+      }
 
-      {/*       <SurveyWrapper /> */}
-      <QRCode style={{ marginLeft: "auto", marginTop: "4rem", marginBottom: "4rem", marginRight: "auto" }} value={url} size={128} />
 
     </Container>
   )

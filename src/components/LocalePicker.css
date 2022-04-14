@@ -1,0 +1,19 @@
+navigation {
+  display: -webkit-box;
+  display: flex;
+  position: fixed;
+  -webkit-box-align: stretch;
+  align-items: stretch;
+  top: 0;
+  right: 0;
+  left: 0;
+  z-index: 20000 !important;
+  min-height: 55px;
+  background-color: #202020;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+  -webkit-transition: -webkit-transform 0.4s;
+  transition: -webkit-transform 0.4s;
+  transition: transform 0.4s;
+  transition: transform 0.4s, -webkit-transform 0.4s;
+}
