@@ -5,7 +5,7 @@ import { StructuredText } from "react-datocms";
 const PostBody: React.FC<PostBodyProps> = ({ content }) => {
   return (
     <div className="max-w-2xl mx-auto">
-      <div className="prose prose-lg prose-blue">
+      <div className="prose prose-2xl prose-blue">
         <StructuredText
           data={content}
           renderBlock={({ record }: { record: TypeRecord }) => {

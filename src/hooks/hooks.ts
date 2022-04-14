@@ -76,6 +76,10 @@ const useKeyboardStream = (locale: string) => {
             const url = isValidHttpUrl(keyboardStream)
 
             if (url) {
+                // mäppäys tähän. Hae oikea route dynaamisen urlin perusteella
+                // TODO
+                //
+
                 const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
                 console.log(localeUrl)
                 navigate(localeUrl);
