@@ -122,7 +122,7 @@ export const createPages: GatsbyNode["createPages"] = async ({ graphql, actions:
           }
           productMedia {
             isImage
-            gatsbyImage: gatsbyImageData(width: 700)
+            gatsbyImage: gatsbyImageData(width: 800)
             video {
               thumbnailUrl
               mp4Url

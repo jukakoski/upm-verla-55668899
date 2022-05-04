@@ -63,7 +63,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr} />
 
       <Header locale={locale} pageTitle={pageTitle} logo={logo} />
-      <article>
+      <article style={{marginBottom: '4rem'}}>
         <ProductHeader
           title={product.title}
           coverImage={product.coverImage}
@@ -79,7 +79,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
             }
 
             {productMedia && productMedia.isImage &&
-              <GatsbyImage alt="product-image" image={productMedia.gatsbyImage} />
+              <GatsbyImage alt="product-image"  image={productMedia.gatsbyImage} />
             }
 
 
