@@ -78,14 +78,23 @@ const useKeyboardStream = (locale: string) => {
             const url = isValidHttpUrl(keyboardStream)
 
             if (url) {
-                // mäppäys tähän. Hae oikea route dynaamisen urlin perusteella
-                // TODO
-                //
+                // path is in whitelist
+                const pathValid = urlPathWhitelist.includes(url.pathname)
 
-                const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
-                console.log(localeUrl)
-                navigate(localeUrl);
-            } else {
+                if (pathValid) {
+                    console.log('polku', url.pathname)
+                    const samePage = window.location.pathname.includes(url.pathname)
+
+                    if (!samePage) {
+                        const localeUrl = locale === "en" ? url.pathname : `/${locale}${url.pathname}`
+                        navigate(localeUrl);
+                    } else {
+                        console.log('sama sivu...')
+                    }
+
+
+                }
+
             }
 
             setTimeout(() => {
@@ -238,5 +247,30 @@ type UseStatisticsReturn = {
     busy: boolean
     views: number | null
     host: string | null
-    urlParams: URLSearchParams | null
+    urlParams: URLSearchParams | null
 }
+
+
+const urlPathWhitelist = [
+    "/products/rff",
+    "/products/bioverno",
+    "/products/upm-profi-komposiittimateriaali",
+    "/products/mysoda-woody",
+    "/products/upm-biomedicals-fibdex",
+    "/products/glygol",
+    "/products/lignin",
+    "/products/cotton-stick",
+    "/products/crabberry-bag",
+    "/products/timber",
+    "/products/tissue",
+    "/products/blotting-paper",
+    "/products/paper-tissue-roll",
+    "/products/muesli-bag",
+    "/products/pasta-bag",
+    "/products/sugar-bag",
+    "/products/kyro-napue-gin",
+    "/products/vellamo-water-bottle",
+    "/products/newspapers",
+    "/products/natureline-aterimet",
+    "/products/maitopurkki-arla"
+]

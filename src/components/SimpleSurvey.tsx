@@ -15,7 +15,7 @@ const SimpleSurvey: React.FC<SimpleSurveyProps> = ({ id, answers, title, questio
 
     useEffect(() => {
         const unsub = onSnapshot(collection(db, "survey"), (snapshot) => {
-            console.log(snapshot)
+            // console.log(snapshot)
         })
 
         return unsub
