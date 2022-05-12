@@ -1,5 +1,7 @@
 import { useState, useEffect, SetStateAction } from "react";
 import { navigate } from "gatsby";
+import { getDoc, doc, setDoc, updateDoc, increment, serverTimestamp, FieldValue } from 'firebase/firestore'
+import db from "../firebase"
 
 const useKey = () => {
 
@@ -104,7 +106,105 @@ const useKeyboardStream = (locale: string) => {
     return keyboardStream
 }
 
-export { useKeyPress, useKey, useKeyboardStream }
+
+
+
+const useStatistics = (id: string): UseStatisticsReturn => {
+
+    const [urlParams, setUrlParams] = useState<URLSearchParams | null>(null);
+    const [host, setHost] = useState<string | null>(null)
+
+    const [busy, setBusy] = useState(false)
+
+    const [views, setViews] = useState<number | null>(null)
+
+    const logView = async () => {
+
+        setBusy(true)
+
+        const docRef = doc(db, "pageStatistics", id);
+
+        // https://cloud.google.com/firestore/docs/manage-data/add-data
+        try {
+
+            const docSnap = await getDoc(docRef);
+
+            if (docSnap.exists()) {
+
+                const updateData = {
+                    views: increment(1),
+                    timestamp: serverTimestamp()
+                }
+
+                const res = await updateDoc(docRef, updateData)
+
+            } else {
+                // doc.data() will be undefined in this case
+                console.log("No such document! Create new...");
+
+                const newPageStatistics: PageStatisticsType = {
+                    views: 1,
+                    timestamp: serverTimestamp()
+                }
+
+                // Add a new document in collection "survey"
+                const res = await setDoc(doc(db, "pageStatistics", id), newPageStatistics);
+
+            }
+
+            // get doc to show results
+            const docResults = await getDoc(docRef);
+
+            const data = docResults.data()
+
+            if (data && data.views) {
+                setViews(data.views)
+            }
+
+            setBusy(false)
+            return true
+
+        } catch (error) {
+            console.log(error)
+            setBusy(false)
+            return
+        }
+    }
+
+
+    useEffect(() => {
+        // log page views in production (not in localhost)
+        if (typeof window !== `undefined`) {
+            const hostname = window.location.hostname;
+            const queryString = window.location.search;
+            const urlParams = new URLSearchParams(queryString);
+            if (urlParams) {
+                setUrlParams(urlParams);
+            }
+
+            if (hostname) {
+                setHost(hostname)
+            }
+
+            if (hostname !== "localhost") {
+                logView()
+            }
+        }
+    }, [])
+
+    return {
+        busy,
+        views,
+        host,
+        urlParams
+    }
+
+}
+
+
+
+
+export { useKeyPress, useKey, useKeyboardStream, useStatistics }
 
 
 
@@ -123,4 +223,20 @@ function isValidHttpUrl(string: string) {
 
     return url
 
+}
+
+
+
+
+type PageStatisticsType = {
+    views: number
+    timestamp: FieldValue
+}
+
+
+type UseStatisticsReturn = {
+    busy: boolean
+    views: number | null
+    host: string | null
+    urlParams: URLSearchParams | null
 }

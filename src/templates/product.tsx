@@ -13,6 +13,7 @@ import { Helmet } from "react-helmet";
 import SimpleSurvey from "../components/SimpleSurvey";
 import LocalePicker from "../components/LocalePicker";
 import { useKeyboardStream } from "../hooks/hooks";
+import ViewCounter from "../components/ViewCounter";
 
 const Product: React.FC<ProductProps> = ({ pageContext }) => {
 
@@ -63,7 +64,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
       <LocalePicker locale={locale} slug={`products/${slug}`} localeDataArr={localeDataArr} />
 
       <Header locale={locale} pageTitle={pageTitle} logo={logo} />
-      <article style={{marginBottom: '4rem'}}>
+      <article style={{ marginBottom: '4rem' }}>
         <ProductHeader
           title={product.title}
           coverImage={product.coverImage}
@@ -79,7 +80,7 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
             }
 
             {productMedia && productMedia.isImage &&
-              <GatsbyImage alt="product-image"  image={productMedia.gatsbyImage} />
+              <GatsbyImage alt="product-image" image={productMedia.gatsbyImage} />
             }
 
 
@@ -92,6 +93,11 @@ const Product: React.FC<ProductProps> = ({ pageContext }) => {
                 answers={answersParsed}
                 locale={locale} />
             </div>
+
+            <ViewCounter
+              id={slug}
+              locale={locale}
+            />
 
           </div>
 
